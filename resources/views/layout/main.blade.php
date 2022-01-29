@@ -86,7 +86,7 @@
       " Longitude: " + long);
         '<?php $_SESSION["lat"] = "' + lat + '"; ?>';
         '<?php $_SESSION["long"] = "' + long + '"; ?>';
-          alert('<?php echo $_SESSION["long"] ?>');
+          // alert('<?php echo $_SESSION["long"] ?>');
     }
     function showError(error) {
       switch (error.code) {

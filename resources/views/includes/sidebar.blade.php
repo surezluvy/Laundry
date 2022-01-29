@@ -1,10 +1,19 @@
 <a href="javascript:void(0)" class="overlay-sidebar"></a>
 <div class="header-sidebar">
-    <a href="profile-setting.html" class="user-panel">
-      <img src="assets/images/user/1.png" class="img-fluid user-img" alt="">
-      <span>Hello, Guest</span>
-      <i class="iconly-Arrow-Right-2 icli"></i>
-    </a>
+
+    @auth
+      <a href="profile-setting.html" class="user-panel">
+        <img src="assets/images/user/1.png" class="img-fluid user-img" alt="">
+        <span>Hello, {{ auth()->user()->full_name }}</span>
+        <i class="iconly-Arrow-Right-2 icli"></i>
+      </a>
+    @else
+      <a href="{{ route('login') }}" class="user-panel">
+        <img src="assets/images/user/1.png" class="img-fluid user-img" alt="">
+        <span>Hello, Guest</span>
+        <i class="iconly-Arrow-Right-2 icli"></i>
+      </a>
+    @endauth
     <div class="sidebar-content">
       <ul class="link-section">
         <li>

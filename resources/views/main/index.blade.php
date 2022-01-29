@@ -36,7 +36,7 @@
   </section>
   <!-- home slider end -->
   
-  <iframe src="https://www.google.com/maps?q=-7.4161,109.2899&hl=es;z=14&output=embed" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  {{-- <iframe src="https://www.google.com/maps?q=-7.4161,109.2899&hl=es;z=14&output=embed" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe> --}}
 
   <!-- deals section start -->
   <section class="deals-section px-15 pt-0">

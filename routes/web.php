@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,22 +15,19 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::prefix('/')->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('index');
-    Route::get('/register', function () {
-        return view('main.register');
-    });
-    // Route::get('/posts', [HomeController::class, 'posts'])->name('posts');
-    // Route::get('/category/{category}', [HomeController::class, 'category'])->name('category');
-    // Route::post('/signup', [HomeController::class, 'signup'])->name('signup');
-    // Route::post('/login')->name('login')->middleware('cekstatus');
-    // Route::get('/dashboard', [HomeController::class, 'adminPanel'])->name('dashboard');
-    // Route::get('/dashboardUser', [HomeController::class, 'userPanel'])->name('dashboardUser');
+// Route::prefix('/')->group(function () {
+//     Route::get('/', [HomeController::class, 'index'])->name('index');
+//     Route::get('/dashboard', [HomeController::class, 'dash'])->name('dashboard');
+// });
 
-    // Route::get('/author/{author:id}', function(User $author){
-    //     return view('author',[
-    //         'title' => "Post by author : $author->name",
-    //         'posts' => $author->posts,
-    //     ]);
-    // })->name('author');
+Route::group(['middleware' => 'guest'], function () {
+    // Register
+    Route::get('/register', [AuthController::class, 'register'])->name('register');
+    Route::post('/register', [AuthController::class, 'store'])->name('store');
+    // Login
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/login', [AuthController::class, 'auth'])->name('auth');
+    
+    Route::get('/', [HomeController::class, 'index'])->name('index');
+    Route::get('/dashboard', [HomeController::class, 'dash'])->name('dashboard');
 });

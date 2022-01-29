@@ -19,6 +19,7 @@ class User extends Migration
             $table->string('email');
             $table->integer('phone');
             $table->text('address');
+            $table->string('password');
             $table->string('user_lat');
             $table->string('user_long');
             $table->timestamps();
