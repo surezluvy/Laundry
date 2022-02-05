@@ -16,7 +16,9 @@ class Laundry extends Migration
         Schema::create('laundries', function (Blueprint $table) {
             $table->id('laundry_id')->autoIncrement();
             $table->string('laundry_name');
+            $table->string('laundry_description');
             $table->text('laundry_address');
+            $table->text('laundry_address_detail');
             $table->integer('laundry_price');
             $table->string('laundry_open');
             $table->string('laundry_lat');

@@ -29,84 +29,31 @@
           <div class="col-12">
               <ul class="nav nav-pills">
                   <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="stats.html">
+                      <a class="nav-link  {{ request()->is('/*') ? 'active' : '' }}" aria-current="page" href="{{ route('home') }}">
                           <div class="avatar avatar-40 rounded icon"><i class="bi bi-house-door"></i></div>
-                          <div class="col">Dashboard</div>
-                          <div class="arrow"><i class="bi bi-arrow-right"></i></div>
-                      </a>
-                  </li>
-
-                  <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                          aria-expanded="false">
-                          <div class="avatar avatar-40 rounded icon"><i class="bi bi-shop"></i></div>
-                          <div class="col">Shop</div>
-                          <div class="arrow"><i class="bi bi-plus plus"></i> <i class="bi bi-dash minus"></i>
-                          </div>
-                      </a>
-                      <ul class="dropdown-menu">
-                          <li><a class="dropdown-item nav-link active" href="home.html">
-                                  <div class="avatar avatar-40 rounded icon"><i class="bi bi-bag"></i></div>
-                                  <div class="col">Shop home</div>
-                                  <div class="arrow"><i class="bi bi-arrow-right"></i></div>
-                              </a></li>
-                          <li><a class="dropdown-item nav-link" href="product.html">
-                                  <div class="avatar avatar-40 rounded icon"><i class="bi bi-binoculars"></i></div>
-                                  <div class="col">Product</div>
-                                  <div class="arrow"><i class="bi bi-arrow-right"></i></div>
-                              </a></li>
-                          <li><a class="dropdown-item nav-link" href="cart.html">
-                                  <div class="avatar avatar-40 rounded icon"><i class="bi bi-basket3"></i></div>
-                                  <div class="col">Cart</div>
-                                  <div class="arrow"><i class="bi bi-arrow-right"></i></div>
-                              </a></li>
-                          <li><a class="dropdown-item nav-link" href="payment.html">
-                                  <div class="avatar avatar-40 rounded icon"><i class="bi bi-credit-card"></i></div>
-                                  <div class="col">Payment</div>
-                                  <div class="arrow"><i class="bi bi-arrow-right"></i></div>
-                              </a></li>
-                          <li><a class="dropdown-item nav-link" href="my-orders.html">
-                                  <div class="avatar avatar-40 rounded icon"><i class="bi bi-box-seam"></i></div>
-                                  <div class="col">My Orders</div>
-                                  <div class="arrow"><i class="bi bi-arrow-right"></i></div>
-                              </a></li>
-                      </ul>
-                  </li>
-
-                  <li class="nav-item">
-                      <a class="nav-link" href="chat.html" tabindex="-1">
-                          <div class="avatar avatar-40 rounded icon"><i class="bi bi-chat-text"></i></div>
-                          <div class="col">Messages</div>
+                          <div class="col">Home</div>
                           <div class="arrow"><i class="bi bi-arrow-right"></i></div>
                       </a>
                   </li>
 
                   <li class="nav-item">
-                      <a class="nav-link" href="notifications.html" tabindex="-1">
-                          <div class="avatar avatar-40 rounded icon"><i class="bi bi-bell"></i></div>
-                          <div class="col">Notification</div>
+                      <a class="nav-link {{ request()->is('booking/*') ? 'active' : '' }}" href="{{ route('all_booking') }}" tabindex="-1">
+                          <div class="avatar avatar-40 rounded icon"><i class="bi bi-list-ul"></i></div>
+                          <div class="col">Pesanan</div>
                           <div class="arrow"><i class="bi bi-arrow-right"></i></div>
                       </a>
                   </li>
 
                   <li class="nav-item">
-                      <a class="nav-link" href="settings.html" tabindex="-1">
-                          <div class="avatar avatar-40 rounded icon"><i class="bi bi-gear"></i></div>
-                          <div class="col">Settings</div>
+                      <a class="nav-link {{ request()->is('user/*') ? 'active' : '' }}" href="{{ route('profile') }}" tabindex="-1">
+                          <div class="avatar avatar-40 rounded icon"><i class="bi bi-person-circle"></i></div>
+                          <div class="col">Profil</div>
                           <div class="arrow"><i class="bi bi-arrow-right"></i></div>
                       </a>
                   </li>
 
                   <li class="nav-item">
-                      <a class="nav-link" href="pages.html" tabindex="-1">
-                          <div class="avatar avatar-40 rounded icon"><i class="bi bi-file-earmark-text"></i></div>
-                          <div class="col">Pages <span class="badge bg-info fw-light">new</span></div>
-                          <div class="arrow"><i class="bi bi-arrow-right"></i></div>
-                      </a>
-                  </li>
-
-                  <li class="nav-item">
-                      <a class="nav-link" href="signin.html" tabindex="-1">
+                      <a class="nav-link" href="{{ route('logout') }}" tabindex="-1">
                           <div class="avatar avatar-40 rounded icon"><i class="bi bi-box-arrow-right"></i></div>
                           <div class="col">Logout</div>
                           <div class="arrow"><i class="bi bi-arrow-right"></i></div>

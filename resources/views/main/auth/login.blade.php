@@ -5,13 +5,13 @@
 @section('content')
 <main class="container-fluid h-100 main-container">
     <div class="overlay-image text-end">
-        <img src="assets/img/orange-slice.png" class="orange-slice" alt="">
+        <img src="{{ asset('assets/img/orange-slice.png') }}" class="orange-slice" alt="">
     </div>
 
     <div class="row h-100">
         <div class="col-12 text-center">
             <div class="logo-small">
-                <img src="assets/img/logo.png" alt="" class="img">
+                <img src="{{ asset('assets/img/logo.png') }}" alt="" class="img">
                 <h6>My<br><small>Laundry</small></h6>
             </div>
         </div>

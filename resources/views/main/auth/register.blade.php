@@ -1,17 +1,17 @@
 @extends('layout.main')
 @section('title', 'Daftar')
 @section('data-page', 'signup')
-@section('body-class', ' d-flex flex-column h-100 dark-bg bg1')
+@section('body-class', ' flex-column h-100 dark-bg bg1')
 @section('content')
 <main class="container-fluid h-100 main-container">
     <div class="overlay-image text-end">
-        <img src="assets/img/apple.png" class="orange-slice" alt="">
+        <img src="{{ asset('assets/img/apple.png') }}" class="orange-slice" alt="">
     </div>
 
     <div class="row h-100">
         <div class="col-12 text-center">
             <div class="logo-small">
-                <img src="assets/img/logo.png" alt="" class="img">
+                <img src="{{ asset('assets/img/logo.png') }}" alt="" class="img">
                 <h6>My<br><small>Laundry</small></h6>
             </div>
         </div>
@@ -64,6 +64,17 @@
                                     <input type="text" class="form-control @error('address') is-invalid @enderror" id="address" name="address" placeholder="Masukan alamat" value="{{ old('address') }}" required>
                                     <label for="address">Alamat</label>
                                     @error('address')
+                                    <button type="button"  class="btn btn-link text-danger tooltip-btn invalid-tooltip"
+                                        data-bs-toggle="tooltip" data-bs-placement="left" title="{{ $message }}">
+                                        <i class="bi bi-exclamation-circle"></i>
+                                    </button>
+                                    @enderror
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control @error('address_detail') is-invalid @enderror" id="address_detail" name="address_detail" placeholder="Masukan detail alamat" value="{{ old('address_detail') }}" required>
+                                    <label for="address_detail">Detail alamat</label>
+                                    @error('address_detail')
                                     <button type="button"  class="btn btn-link text-danger tooltip-btn invalid-tooltip"
                                         data-bs-toggle="tooltip" data-bs-placement="left" title="{{ $message }}">
                                         <i class="bi bi-exclamation-circle"></i>

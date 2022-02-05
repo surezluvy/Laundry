@@ -1,5 +1,6 @@
 @extends('layout.main')
 @section('title', 'Profile')
+@section('data-page', '')
 @section('content')
     <!-- header start -->
     <header>
@@ -32,7 +33,7 @@
     <section class="top-space pt-0">
         <div class="profile-detail">
             <div class="media">
-                <img src="assets/images/user/1.png" class="img-fluid" alt="">
+                <img src="{{ asset('assets/images/user/1.png') }}" class="img-fluid" alt="">
                 <div class="media-body">
                     <h2>{{ $session->full_name }}</h2>
                     <h6>{{ $session->email }}</h6>

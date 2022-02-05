@@ -1,11 +1,3 @@
-all-laundry
--search
--filter
+penggunaan kupon diskon
 
-profile
--order
--payment
--saved address
--t&c
--help
-
+ubah lat long pengguna

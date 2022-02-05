@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 29, 2022 at 01:49 PM
+-- Generation Time: Feb 05, 2022 at 05:03 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -24,14 +24,42 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `bookings`
+--
+
+CREATE TABLE `bookings` (
+  `booking_id` bigint(20) UNSIGNED NOT NULL,
+  `laundry_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `metode` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `subtotal` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `berat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `bookings`
+--
+
+INSERT INTO `bookings` (`booking_id`, `laundry_id`, `user_id`, `metode`, `subtotal`, `berat`, `created_at`, `updated_at`) VALUES
+(2, 16, 1, 'antar', '27058', '', '2022-02-05 07:53:19', '2022-02-05 07:53:19'),
+(3, 16, 1, 'antar', '10000', '', '2022-02-05 08:08:16', '2022-02-05 08:08:16');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `laundries`
 --
 
 CREATE TABLE `laundries` (
   `laundry_id` bigint(20) UNSIGNED NOT NULL,
   `laundry_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `laundry_description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `laundry_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `laundry_address_detail` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `laundry_price` int(11) NOT NULL,
+  `laundry_open` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `laundry_lat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `laundry_long` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -42,22 +70,45 @@ CREATE TABLE `laundries` (
 -- Dumping data for table `laundries`
 --
 
-INSERT INTO `laundries` (`laundry_id`, `laundry_name`, `laundry_address`, `laundry_price`, `laundry_lat`, `laundry_long`, `created_at`, `updated_at`) VALUES
-(1, 'Eum officia nostrum.', 'Nanas', 1236, '-7.362690', '109.265381', '2022-01-28 22:14:51', '2022-01-28 22:14:51'),
-(2, 'Ut veniam magni nostrum est.', 'Dewi Sartika', 6997, '-7.360310', '109.246650', '2022-01-28 22:14:51', '2022-01-28 22:14:51'),
-(3, 'Eum eos voluptate suscipit.', 'Dahlia', 9422, '402', '9076', '2022-01-28 22:14:52', '2022-01-28 22:14:52'),
-(4, 'Doloremque qui et quisquam.', 'R.M. Said', 9826, '446', '8120', '2022-01-28 22:14:52', '2022-01-28 22:14:52'),
-(5, 'Mollitia id aspernatur.', 'Zamrud', 6294, '368', '5638', '2022-01-28 22:14:52', '2022-01-28 22:14:52'),
-(6, 'Recusandae iusto ducimus.', 'Batako', 9745, '454', '1343', '2022-01-28 22:14:52', '2022-01-28 22:14:52'),
-(7, 'Et ea et dicta.', 'Tangkuban Perahu', 8138, '915', '2326', '2022-01-28 22:14:52', '2022-01-28 22:14:52'),
-(8, 'Perferendis incidunt voluptate quia.', 'Padma', 7584, '14', '6163', '2022-01-28 22:14:52', '2022-01-28 22:14:52'),
-(9, 'Non esse.', 'Wahidin Sudirohusodo', 8047, '575', '6031', '2022-01-28 22:14:52', '2022-01-28 22:14:52'),
-(10, 'Rerum assumenda.', 'Cikutra Barat', 7981, '70', '6498', '2022-01-28 22:14:52', '2022-01-28 22:14:52'),
-(11, 'Dolor voluptates accusamus.', 'Bambu', 9186, '148', '9321', '2022-01-28 22:14:52', '2022-01-28 22:14:52'),
-(12, 'Explicabo enim nemo.', 'Sutarto', 9804, '953', '5000', '2022-01-28 22:14:52', '2022-01-28 22:14:52'),
-(13, 'Dolorem voluptate natus sed.', 'Bhayangkara', 7627, '833', '6255', '2022-01-28 22:14:52', '2022-01-28 22:14:52'),
-(14, 'Autem omnis.', 'Reksoninten', 3287, '357', '3655', '2022-01-28 22:14:52', '2022-01-28 22:14:52'),
-(15, 'Harum totam.', 'Babadan', 6320, '895', '7377', '2022-01-28 22:14:52', '2022-01-28 22:14:52');
+INSERT INTO `laundries` (`laundry_id`, `laundry_name`, `laundry_description`, `laundry_address`, `laundry_address_detail`, `laundry_price`, `laundry_open`, `laundry_lat`, `laundry_long`, `created_at`, `updated_at`) VALUES
+(16, 'Martani Uwais', 'Odit sapiente itaque dolores possimus adipisci.', 'Psr. Baladewa No. 643', 'Voluptatem accusamus.', 2058, '10:00am - 11:00pm', '-7.362690', '109.265381', '2022-02-05 05:43:58', '2022-02-05 05:43:58'),
+(17, 'Cindy Hani Yuliarti M.Farm', 'Eum quia eaque unde.', 'Jr. Ters. Pasir Koja No. 525', 'Excepturi dolor.', 4353, '10:00am - 11:00pm', '-7.362690', '109.265381', '2022-02-05 05:43:58', '2022-02-05 05:43:58'),
+(18, 'Eja Napitupulu', 'Aperiam magnam molestias dolorem.', 'Jr. Ujung No. 605', 'Repellendus distinctio facere aperiam.', 5793, '10:00am - 11:00pm', '-7.362690', '109.265381', '2022-02-05 05:43:58', '2022-02-05 05:43:58'),
+(19, 'Puput Umi Puspita M.TI.', 'Tempore perspiciatis voluptas natus rerum ut nihil.', 'Ki. Aceh No. 938', 'Et doloribus.', 1695, '10:00am - 11:00pm', '-7.362690', '109.265381', '2022-02-05 05:43:58', '2022-02-05 05:43:58'),
+(20, 'Jati Suryono', 'Qui vel ad at voluptates.', 'Psr. Sumpah Pemuda No. 195', 'Vitae quam corporis.', 4874, '10:00am - 11:00pm', '-7.362690', '109.265381', '2022-02-05 05:43:58', '2022-02-05 05:43:58'),
+(21, 'Hani Diana Namaga', 'Omnis omnis quasi sit laborum veniam qui nihil.', 'Psr. Abdul Rahmat No. 585', 'Quia repellendus recusandae.', 5645, '10:00am - 11:00pm', '-7.362690', '109.265381', '2022-02-05 05:43:58', '2022-02-05 05:43:58'),
+(22, 'Vanya Mardhiyah', 'Illum enim ea animi sequi.', 'Jr. Kusmanto No. 995', 'Consequatur nisi iusto.', 2646, '10:00am - 11:00pm', '57', '310', '2022-02-05 05:43:58', '2022-02-05 05:43:58'),
+(23, 'Karen Nurdiyanti', 'Velit rerum ratione labore et cupiditate.', 'Kpg. Dewi Sartika No. 721', 'Magnam expedita.', 1502, '10:00am - 11:00pm', '364', '4509', '2022-02-05 05:43:58', '2022-02-05 05:43:58'),
+(24, 'Nasrullah Hamzah Sinaga S.Pd', 'Optio illo atque soluta et.', 'Kpg. Urip Sumoharjo No. 331', 'Omnis error quibusdam.', 6296, '10:00am - 11:00pm', '644', '9859', '2022-02-05 05:43:58', '2022-02-05 05:43:58'),
+(25, 'Ratih Wulandari', 'Qui unde rerum itaque quam.', 'Kpg. Tambak No. 652', 'Voluptatibus illum minima.', 8076, '10:00am - 11:00pm', '212', '8588', '2022-02-05 05:43:58', '2022-02-05 05:43:58'),
+(26, 'Ega Prayoga', 'Numquam ad ratione ex sed facilis saepe.', 'Psr. PHH. Mustofa No. 432', 'Inventore ut adipisci suscipit cum.', 455, '10:00am - 11:00pm', '912', '1539', '2022-02-05 05:43:58', '2022-02-05 05:43:58'),
+(27, 'Gantar Hakim', 'Minus exercitationem sit nihil at quas ut optio.', 'Kpg. Samanhudi No. 627', 'Quis eum id.', 6317, '10:00am - 11:00pm', '835', '9068', '2022-02-05 05:43:58', '2022-02-05 05:43:58'),
+(28, 'Hari Rajasa S.Sos', 'Sint sunt earum cupiditate quia sequi.', 'Ds. Yosodipuro No. 568', 'Architecto velit.', 883, '10:00am - 11:00pm', '819', '9695', '2022-02-05 05:43:58', '2022-02-05 05:43:58'),
+(29, 'Gasti Nadine Uyainah', 'Optio aliquid et tempore occaecati nostrum.', 'Dk. Baya Kali Bungur No. 158', 'Laudantium voluptatibus.', 7563, '10:00am - 11:00pm', '675', '7023', '2022-02-05 05:43:58', '2022-02-05 05:43:58'),
+(30, 'Dalimin Kurnia Simbolon S.E.', 'Suscipit explicabo illo atque veritatis libero enim.', 'Psr. Taman No. 646', 'Aliquam molestiae eos.', 7762, '10:00am - 11:00pm', '346', '1157', '2022-02-05 05:43:58', '2022-02-05 05:43:58');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `laundry_fiturs`
+--
+
+CREATE TABLE `laundry_fiturs` (
+  `laundryFitur_id` bigint(20) UNSIGNED NOT NULL,
+  `laundry_id` bigint(20) UNSIGNED NOT NULL,
+  `laundryFitur_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `laundry_fiturs`
+--
+
+INSERT INTO `laundry_fiturs` (`laundryFitur_id`, `laundry_id`, `laundryFitur_name`, `created_at`, `updated_at`) VALUES
+(1, 16, 'Fitur 1', NULL, NULL),
+(2, 16, 'Fitur 2', NULL, NULL),
+(3, 16, 'Fitur 3', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -76,27 +127,31 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(2, '2022_01_28_095758_laundry', 1),
-(3, '2022_01_28_215621_user', 1);
+(9, '2022_02_05_132515_booking', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `personal_access_tokens`
+-- Table structure for table `ongkirs`
 --
 
-CREATE TABLE `personal_access_tokens` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `last_used_at` timestamp NULL DEFAULT NULL,
+CREATE TABLE `ongkirs` (
+  `ongkir_id` bigint(20) UNSIGNED NOT NULL,
+  `jarak` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `harga` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ongkirs`
+--
+
+INSERT INTO `ongkirs` (`ongkir_id`, `jarak`, `harga`, `created_at`, `updated_at`) VALUES
+(1, '2', '10000', NULL, NULL),
+(2, '4', '15000', NULL, NULL),
+(3, '6', '20000', NULL, NULL),
+(4, '8', '25000', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -110,6 +165,7 @@ CREATE TABLE `users` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address_detail` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_lat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_long` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -121,14 +177,20 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `full_name`, `email`, `phone`, `address`, `password`, `user_lat`, `user_long`, `created_at`, `updated_at`) VALUES
-(5, 'Wahyu Triono', 'admin@admin.com', '1231241123', 'wdawd', '$2y$10$pnFbaLLcpASgDjhNBvtPkO4B.kSLZ7qbBHhPwdXvky5d352DsArzK', '-7.4161', '109.2899', '2022-01-28 21:08:32', '2022-01-28 21:08:32'),
-(6, 'Wahyu Triono', '20104001@ittelkom-pwt.ac.id', '123124112313', 'wdawd', '$2y$10$aK/OhMosTSnk23d2H.ToQuX01yrJGx3ca.pIjgQEybWd45OaMefMm', '-7.4161', '109.2899', '2022-01-28 21:18:21', '2022-01-28 21:18:21'),
-(7, 'Wahyu Triono', 'admin@admi131n.com', '51512351231', 'asdwd', '$2y$10$ArclH.OjpfR01XnsP0Rjn.dD.qyo1TXYI9BbSZwdQ849ZO8E8o5TS', '-7.4161', '109.2899', '2022-01-28 21:20:17', '2022-01-28 21:20:17');
+INSERT INTO `users` (`user_id`, `full_name`, `email`, `phone`, `address`, `address_detail`, `password`, `user_lat`, `user_long`, `created_at`, `updated_at`) VALUES
+(1, 'Wahyu Triono', 'admin@admin.com', '085156113164', 'Jl. banteran', 'Dekat masjid abc', '$2y$10$ySx89TkyqTc5hZeWT6.YEephAcc4tLPp02lW64ULdZ4Sw0YKTfh.6', '-7.4161', '109.2899', '2022-02-05 06:14:23', '2022-02-05 06:14:23');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `bookings`
+--
+ALTER TABLE `bookings`
+  ADD PRIMARY KEY (`booking_id`),
+  ADD KEY `bookings_laundry_id_foreign` (`laundry_id`),
+  ADD KEY `bookings_user_id_foreign` (`user_id`);
 
 --
 -- Indexes for table `laundries`
@@ -137,18 +199,23 @@ ALTER TABLE `laundries`
   ADD PRIMARY KEY (`laundry_id`);
 
 --
+-- Indexes for table `laundry_fiturs`
+--
+ALTER TABLE `laundry_fiturs`
+  ADD PRIMARY KEY (`laundryFitur_id`),
+  ADD KEY `laundryfiturs_laundry_id_foreign` (`laundry_id`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `personal_access_tokens`
+-- Indexes for table `ongkirs`
 --
-ALTER TABLE `personal_access_tokens`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
-  ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
+ALTER TABLE `ongkirs`
+  ADD PRIMARY KEY (`ongkir_id`);
 
 --
 -- Indexes for table `users`
@@ -161,28 +228,57 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `bookings`
+--
+ALTER TABLE `bookings`
+  MODIFY `booking_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `laundries`
 --
 ALTER TABLE `laundries`
-  MODIFY `laundry_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `laundry_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `laundry_fiturs`
+--
+ALTER TABLE `laundry_fiturs`
+  MODIFY `laundryFitur_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `personal_access_tokens`
+-- AUTO_INCREMENT for table `ongkirs`
 --
-ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `ongkirs`
+  MODIFY `ongkir_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `user_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `bookings`
+--
+ALTER TABLE `bookings`
+  ADD CONSTRAINT `bookings_laundry_id_foreign` FOREIGN KEY (`laundry_id`) REFERENCES `laundries` (`laundry_id`),
+  ADD CONSTRAINT `bookings_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+
+--
+-- Constraints for table `laundry_fiturs`
+--
+ALTER TABLE `laundry_fiturs`
+  ADD CONSTRAINT `laundryfiturs_laundry_id_foreign` FOREIGN KEY (`laundry_id`) REFERENCES `laundries` (`laundry_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -2,6 +2,7 @@
 @section('title', 'Detail Laundry')
 @section('data-page', 'product')
 @section('content')
+@include('includes.sidebar')
 <main class="h-100 has-header">
 
     <!-- Header -->
@@ -60,7 +61,7 @@
                 <h4 class="text-color-theme mb-3">{{ $d->laundry_name }}</h4>
                 <div class="row mb-4">
                     <div class="col">
-                        <h5 class="mb-0">Rp. {{ $d->laundry_price }} /kg</h5>
+                        <h5 class="mb-0">Rp. {{ number_format($d->laundry_price,2,',','.') }} /kg</h5>
                         <p class="text-opac">10:00am - 11:00pm</p>
                     </div>
                     {{-- <div class="col-auto align-self-center">
@@ -85,16 +86,9 @@
                 <div class="card card-light shadow-sm mb-4">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-auto">
-                                <figure class="text-center mb-0 avatar avatar-50 page-bg rounded">
-                                    <i class="bi bi-clock size-24 text-color-theme"></i>
-                                </figure>
-                            </div>
                             <div class="col align-self-center">
-                                <h6 class="mb-1">San Jose, USA
-                                    <span class="text-color-theme float-end small">Change <i class="bi bi-chevron-right"></i></span>
-                                </h6>
-                                <p><span class="text-opac">Delivery on:</span> <strong>7 Dec 2021</strong></p>
+                                <iframe src="https://www.google.com/maps?q={{ $d->laundry_lat }},{{ $d->laundry_long }}&hl=es;z=14&output=embed"
+                                class="h-190 w-100 rounded mb-3" allowfullscreen="" loading="lazy"></iframe>
                             </div>
                         </div>
                     </div>
@@ -109,20 +103,20 @@
         </div>
         <div class="row mb-4">
             <div class="col-12">
-                <p class="text-opac">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-                    sollicitudin dignissim nisi, eget malesuada ligula ultricies sit amet. Suspendisse
-                    efficitur ex eu est placerat mattis.</p>
-                <p class="text-opac">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-                    sollicitudin dignissim nisi, eget malesuada ligula ultricies sit amet. Suspendisse
-                    efficitur ex eu est placerat mattis.</p>
+                <p class="text-opac">{{ $d->laundry_description }}</p>
                 <h5>Fitur laundry</h5>
                 <ol class="text-opac">
-                    <li>Lorem ipsum dolor sit amet</li>
-                    <li>Lorem ipsum dolor sit amet</li>
-                    <li>Lorem ipsum dolor sit amet</li>
-                    <li>Lorem ipsum dolor sit amet</li>
-                    <li>Lorem ipsum dolor sit amet</li>
+                    @foreach($fitur as $f)
+                        <li>{{ $f->laundryFitur_name }}</li>
+                    @endforeach
                 </ol>
+            </div>
+        </div>
+
+        
+        <div class="row mb-3">
+            <div class="col align-self-center d-grid">
+                <a href="{{ route('pesan', $d->laundry_id) }}" class="btn btn-default btn-lg shadow-sm">Pesan</a>
             </div>
         </div>
 

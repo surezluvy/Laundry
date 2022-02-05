@@ -17,8 +17,9 @@ class User extends Migration
             $table->id('user_id')->autoIncrement();
             $table->string('full_name');
             $table->string('email');
-            $table->integer('phone');
+            $table->string('phone');
             $table->text('address');
+            $table->text('address_detail');
             $table->string('password');
             $table->string('user_lat');
             $table->string('user_long');

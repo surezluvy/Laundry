@@ -7,30 +7,38 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Laundry;
 use App\Models\User;
+use App\Models\Ongkir;
+use App\Models\LaundryFitur;
+use App\Models\Booking;
 
 class HomeController extends Controller
 {
-    function index(){
+    function index(Request $request){
         $data = DB::table('laundries')
         ->selectRaw('laundries.*, (6371 * acos (cos ( radians(-7.4161) ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians(109.2899) ) + sin ( radians(-7.4161) ) * sin( radians( laundry_lat ) ))) AS distance')
         ->havingRaw('distance <= 20')
+        ->take(5)
         ->get();
+
+        if($request->search != null){
+            $data = DB::table('laundries')
+            ->selectRaw('laundries.*, (6371 * acos (cos ( radians(-7.4161) ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians(109.2899) ) + sin ( radians(-7.4161) ) * sin( radians( laundry_lat ) ))) AS distance')
+            ->havingRaw('distance <= 20')
+            ->where('laundry_name', 'like', '%'.$request->search.'%')
+            ->take(5)
+            ->get();
+        }
         
-        // $session = $request->session()->all();
-        // $request->session()->flush();
         return view('main.laundry.index', compact('data'));
-        // dd($session['user']['full_name']);
-        // dd(auth()->user());
     }
 
     function allLaundry(){
-        $data = Laundry::all();
-        
-        // $session = $request->session()->all();
+        $data = DB::table('laundries')
+        ->selectRaw('laundries.*, (6371 * acos (cos ( radians(-7.4161) ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians(109.2899) ) + sin ( radians(-7.4161) ) * sin( radians( laundry_lat ) ))) AS distance')
+        ->orderBy('distance', 'asc')
+        ->get();
 
         return view('main.laundry.all-laundry', compact('data'));
-        // dd($session['user']['full_name']);
-        // dd(auth()->user());
     }
 
     function detail($id){
@@ -46,63 +54,68 @@ class HomeController extends Controller
         ->havingRaw('distance <= 20')
         ->get(3);
         
-        // $session = $request->session()->all();
+        $fitur = LaundryFitur::where('laundry_id', $id)->get();
 
-        return view('main.laundry.detail', compact('data', 'latest'));
-        // dd($session['user']['full_name']);
-        // dd(auth()->user());
+        return view('main.laundry.detail', compact('data', 'latest', 'fitur'));
     }
 
+    function pesan($id, $metode = null){
+        $data = DB::table('laundries')
+        ->selectRaw('laundries.*, (6371 * acos (cos ( radians(-7.4161) ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians(109.2899) ) + sin ( radians(-7.4161) ) * sin( radians( laundry_lat ) ))) AS distance')
+        ->where('laundry_id', $id)
+        ->havingRaw('distance <= 20')
+        ->get();
+        $ongkir = Ongkir::all();
 
-    // Profile
-    function profile(){
+        $harga_ongkir = '';
+        $subtotal = '';
+        $total = '';
 
-        if(!isset($session['user'])){
-            return redirect('/login');
+        foreach ($data as $d) {
+            if($d->distance <= $ongkir[0]->jarak){
+                $harga_ongkir = $ongkir[0]->harga;
+                $subtotal = $ongkir[0]->harga;
+                $total = $d->laundry_price + $ongkir[0]->harga;
+            }elseif($d->distance >= $ongkir[0]->jarak && $d->distance <= $ongkir[1]->jarak){
+                $harga_ongkir = $ongkir[1]->harga;
+                $subtotal = $ongkir[0]->harga;
+                $total = $d->laundry_price + $ongkir[1]->harga;
+            }elseif($d->distance >= $ongkir[1]->jarak && $d->distance <= $ongkir[2]->jarak){
+                $harga_ongkir = $ongkir[2]->harga;
+                $subtotal = $ongkir[0]->harga;
+                $total = $d->laundry_price + $ongkir[2]->harga;
+            }elseif($d->distance >= $ongkir[2]->jarak && $d->distance <= $ongkir[3]->jarak){
+                $harga_ongkir = $ongkir[3]->harga;
+                $subtotal = $ongkir[0]->harga;
+                $total = $d->laundry_price + $ongkir[3]->harga;
+            }elseif($d->distance >= $ongkir[3]->jarak){
+                $harga_ongkir = $ongkir[4]->harga;
+                $subtotal = $ongkir[0]->harga;
+                $total = $d->laundry_price + $ongkir[4]->harga;
+            }
         }
-        
-        return view('main.profile.index', compact('session'));
-    }
-    
-    function profileEdit(Request $request){
-        $session = $request->session()->all();
-        
-        if(!isset($session['user'])){
-            return redirect('/login');
+
+        if($metode == 'antar'){
+            $total = $total-=5000;
         }
-        
-        $user = User::findOrFail($session['user']['user_id']);
-        return view('main.profile.setting', compact('user'));
+
+        if($metode == null){
+            return view('main.laundry.pesan.metode', compact('data', 'ongkir', 'harga_ongkir', 'total', 'subtotal'));
+        }else{
+            return view('main.laundry.pesan.alamat', compact('data', 'ongkir', 'harga_ongkir', 'total', 'subtotal', 'metode'));
+        }
     }
-    
-    function profileChange(Request $request, $id){
-        $validateData = $request->validate([
-            'full_name' => 'required|min:3|string',
-            'email' => 'required|email:dns',
-            'phone' => 'required|min:10',
-            'address' => 'required|min:5',
-            'password' => 'required|min:8'
+
+    function proses_pesan(Request $request){
+        Booking::create([
+            'laundry_id' => $request->laundry_id,
+            'user_id' => $request->user_id,
+            'metode' => $request->metode,
+            'subtotal' => $request->subtotal,
+            'berat' => '',
         ]);
 
-        if($validateData['password'] != null){
-            $validateData['password'] = bcrypt($validateData['password']);
-        }
-
-        // $data = User::findOrFail($request->user_id);
-
-        // $data->update([
-        //     'full_name' => $request->full_name,
-        //     'email' => $request->email,
-        //     'phone' => $request->phone,
-        //     'address' => $request->address,
-        //     'password' => $request->password,
-        // ]);
-        $user = User::findOrFail($id)->update($request->all()); 
-
-        if($user){
-            return redirect()->route('profile')->with(['success' => 'Berhasil memperbarui data']);
-        } else{
-            return redirect()->route('profile')->with(['error' => 'Gagal memperbarui data']);
-        }
+        // $request->session()->flash('success', 'Berhasil mendaftar! Silahkan masuk');
+        return redirect('profile')->with('success', 'Pemesanan berhasil, silahkan lihat riwayat anda dibawah');
     }
 }

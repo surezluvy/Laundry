@@ -13,7 +13,7 @@
         </div>
         <div class="col-auto align-self-center">
             @auth
-                <a href="profile.html" class="link text-color-theme">
+                <a href="{{ route('profile') }}" class="link text-color-theme">
                     <i class="bi bi-person-circle size-22"></i>
                 </a>
             @else
