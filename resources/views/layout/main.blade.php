@@ -1,124 +1,188 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Multikart">
-  <meta name="keywords" content="Multikart">
-  <meta name="author" content="Multikart">
-  <link rel="manifest" href="{{ asset('assets/manifest.json') }}">
-  <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon" />
-  <title>Multikart PWA App</title>
-  <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon" />
-  <link rel="apple-touch-icon" href="{{ asset('assets/images/favicon.png') }}">
-  <meta name="theme-color" content="#ff4c3b" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="multikart">
-  <meta name="msapplication-TileImage" content="{{ asset('assets/images/favicon.png') }}">
-  <meta name="msapplication-TileColor" content="#FFFFFF">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="">
+    <title>My Laundry - @yield('title')</title>
 
-  <!--Google font-->
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+    <!-- manifest meta -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    {{-- <link rel="manifest" href="{{ asset('assets/manifest.json') }}" /> --}}
 
-  <!-- bootstrap css -->
-  <link rel="stylesheet" id="rtl-link" type="text/css" href="{{ asset('assets/css/vendors/bootstrap.css') }}">
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="{{ asset('assets/img/favicon180.png') }}" sizes="180x180">
+    <link rel="icon" href="{{ asset('assets/img/favicon32.png') }}" sizes="32x32" type="image/png">
+    <link rel="icon" href="{{ asset('assets/img/favicon16.png') }}" sizes="16x16" type="image/png">
 
-  <!-- slick css -->
-  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/slick-theme.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/slick.css') }}">
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
-  <!-- iconly css -->
-  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/iconly.css') }}">
+    <!-- bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
-  <!-- Theme css -->
-  <link rel="stylesheet" id="change-link" type="text/css" href="{{ asset('assets/css/style.css') }}">
+    <!-- nouislider CSS -->
+    <link href="{{ asset('assets/vendor/nouislider/nouislider.min.css') }}" rel="stylesheet">
 
+    <!-- swiper css -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/swiperjs-6.6.2/swiper-bundle.min.css') }}">
+
+    <!-- style css for this template -->
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" id="style">
 </head>
 
-<body onload="getLocation();">
+<body class="body-scroll @yield('body-class')" data-page="@yield('data-page')" onload="getLocation()">
 
-  <!-- loader strat -->
-  <div class="loader">
-    <span></span>
-    <span></span>
-  </div>
-  <!-- loader end -->
-  @include('includes.top-nav')
-  @include('includes.sidebar')
-
-  @yield('content')
-
-  @include('includes.bottom-nav')
-
-  <!-- pwa install app popup start -->
-  <div class="offcanvas offcanvas-bottom addtohome-popup" tabindex="-1" id="offcanvas">
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    <div class="offcanvas-body small">
-      <div class="app-info">
-        <img src="assets/images/logo/logo48.png" class="img-fluid" alt="">
-        <div class="content">
-          <h3>Multikart App</h3>
-          <a href="#">www.multikart-app.com</a>
+    <!-- loader section -->
+    <div class="container-fluid loader-wrap">
+        <div class="row h-100">
+            <div class="col-10 col-md-6 col-lg-5 col-xl-3 mx-auto text-center align-self-center">
+                <div class="loader-cube-wrap mx-auto">
+                    <div class="loader-cube1 loader-cube"></div>
+                    <div class="loader-cube2 loader-cube"></div>
+                    <div class="loader-cube4 loader-cube"></div>
+                    <div class="loader-cube3 loader-cube"></div>
+                </div>
+                <p>Let's Create Difference<br><strong>Please wait...</strong></p>
+            </div>
         </div>
-      </div>
-      <a href="javascript:void(0)" class="btn btn-solid install-app" id="installApp">add to home screen</a>
     </div>
-  </div>
-  <!-- pwa install app popup end -->
+    <!-- loader section ends -->
 
-  <script>
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
-      } else { 
-        console.log("Geolocation is not supported by this browser.");
-      }
-    }
-    
-    function showPosition(position) {
-      var lat = position.coords.latitude;
-      var long = position.coords.longitude;
-      console.log("Latitude: " + lat + 
-      " Longitude: " + long);
-        '<?php $_SESSION["lat"] = "' + lat + '"; ?>';
-        '<?php $_SESSION["long"] = "' + long + '"; ?>';
-          // alert('<?php echo $_SESSION["long"] ?>');
-    }
-    function showError(error) {
-      switch (error.code) {
-        case error.PERMISSION_DENIED:
-          alert("Mohon nyalakan GPS anda");
-          location.reload();
-          break; 
-      }
-    }
-  </script>
-  <!-- latest jquery-->
-  <script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
+    <!-- Sidebar main menu -->
+    @include('includes.sidebar')
+    <!-- Sidebar main menu ends -->
 
-  <!-- Bootstrap js-->
-  <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- Begin page -->
+    @yield('content')	
+    <!-- Page ends-->
 
-  <!-- Slick js-->
-  <script src="{{ asset('assets/js/slick.js') }}"></script>
+    <!-- Footer -->
+    {{-- @include('includes.footer') --}}
+    <!-- Footer ends-->
 
-  <!-- Slick js-->
-  <script src="{{ asset('assets/js/homescreen-popup.js') }}"></script>
+    <!-- filter menu -->
+    {{-- @include('includes.filter') --}}
+    <!-- filter menu ends-->
 
-  <!-- timer js-->
-  <script src="{{ asset('assets/js/timer.js') }}"></script>
+    <!-- add cart modal -->
+    {{-- <div class="modal fade" id="addproductcart" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content product border-0 shadow-sm">
+                <figure class="text-center mb-0 px-5 py-3">
+                    <img src="{{ asset('assets/img/apple.png') }}" alt="" class="mw-100">
+                </figure>
+                <div class="modal-body">
+                    <p class="mb-1">
+                        <small class="text-opac">Fresh</small>
+                        <small class="float-end"><span class="text-opac">4.5</span> <i class="bi bi-star-fill text-warning"></i></small>
+                    </p>
+                    <a href="product.html" class="text-normal">
+                        <h6 class="text-color-theme">Red Apple</h6>
+                    </a>
+                    <div class="row">
+                        <div class="col">
+                            <p class="mb-0">$12.00<br><small class="text-opac">per 1 kg</small></p>
+                        </div>
+                        <div class="col-auto">
+                            <!-- button counter increamenter-->
+                            <div class="counter-number">
+                                <button class="btn btn-sm avatar avatar-30 p-0 rounded-circle">
+                                    <i class="bi bi-dash size-22"></i>
+                                </button>
+                                <span>1</span>
+                                <button class="btn btn-sm avatar avatar-30 p-0 rounded-circle">
+                                    <i class="bi bi-plus size-22"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-link text-color-theme" data-bs-dismiss="modal">Done</button>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+    <!-- add cart modal ends -->
 
-  <!-- offcanvas modal js -->
-  <script src="{{ asset('assets/js/offcanvas-popup.js') }}"></script>
+    <!-- PWA app install toast message -->
+    {{-- <div class="position-fixed bottom-0 start-50 translate-middle-x  z-index-9">
+        <div class="toast mb-3" role="alert" aria-live="assertive" aria-atomic="true" id="toastinstall"
+            data-bs-animation="true">
+            <div class="toast-header">
+                <img src="{{ asset('assets/img/favicon32.png') }}" class="rounded me-2" alt="...">
+                <strong class="me-auto">Install PWA App</strong>
+                <small>now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <div class="row">
+                    <div class="col">
+                        Click "Install" to install PWA app and experience as indepedent app.
+                    </div>
+                    <div class="col-auto align-self-center">
+                        <button class="btn-default btn btn-sm" id="addtohome">Install</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
 
-  <!-- script js -->
-  <script src="{{ asset('assets/js/script.js') }}"></script>
+    <script>
+         function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else { 
+                console.log("Geolocation is not supported by this browser.");
+            }
+        }
+        function showPosition(position) {
+            var lat = position.coords.latitude;
+            var long = position.coords.longitude;
+            document.querySelector('.registerForm input[name = "user_lat"]').value = lat;
+            document.querySelector('.registerForm input[name = "user_long"]').value = long;
+        }
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                alert("Mohon nyalakan GPS anda");
+                location.reload();
+                break; 
+            }
+        }
+    </script>
 
-  <script src="https://kit.fontawesome.com/bd8cae4807.js" crossorigin="anonymous"></script>
+    <!-- Required jquery and libraries -->
+    <script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/bootstrap-5/js/bootstrap.bundle.min.js') }}"></script>
+
+    <!-- cookie js -->
+    <script src="{{ asset('assets/js/jquery.cookie.js') }}"></script>
+
+    <!-- PWA app service registration and works -->
+    <script src="{{ asset('assets/js/pwa-services.js') }}"></script>
+
+    <!-- swiper script -->
+    <script src="{{ asset('assets/vendor/swiperjs-6.6.2/swiper-bundle.min.js') }}"></script>
+
+    <!-- Progress circle js script -->
+    <script src="{{ asset('assets/vendor/progressbar-js/progressbar.min.js') }}"></script>
+
+    <!-- nouislider js -->
+    <script src="{{ asset('assets/vendor/nouislider/nouislider.min.js') }}"></script>
+
+    <!-- Customized jquery file  -->
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/color-scheme.js') }}"></script>
+
+    <!-- page level custom script -->
+    <script src="{{ asset('assets/js/app.js') }}"></script>
 
 </body>
 

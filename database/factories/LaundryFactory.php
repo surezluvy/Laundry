@@ -14,9 +14,10 @@ class LaundryFactory extends Factory
     public function definition()
     {
         return [
-            'laundry_name' => $this->faker->sentence(mt_rand(2, 3)),
-            'laundry_address' => $this->faker->streetName(),
+            'laundry_name' => $this->faker->name(mt_rand(1, 2)),
+            'laundry_address' => $this->faker->streetAddress(),
             'laundry_price' => $this->faker->randomNumber(4),
+            'laundry_open' => '10:00am - 11:00pm',
             'laundry_lat' => $this->faker->randomNumber(3),
             'laundry_long' => $this->faker->randomNumber(4),
         ];

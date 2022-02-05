@@ -18,6 +18,7 @@ class Laundry extends Migration
             $table->string('laundry_name');
             $table->text('laundry_address');
             $table->integer('laundry_price');
+            $table->string('laundry_open');
             $table->string('laundry_lat');
             $table->string('laundry_long');
             $table->timestamps();

@@ -25,6 +25,7 @@ class User extends Authenticatable
     //     'phone',
     //     'password',
     // ];
+    protected $primaryKey = 'user_id';
 
     // Guarded digunakan untuk apa aja yang tidak boleh diisi
     // Jadi daripada ribet menulis semua kolom pada fillable, isi saja id pada guarded

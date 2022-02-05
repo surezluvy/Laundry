@@ -1,0 +1,11 @@
+all-laundry
+-search
+-filter
+
+profile
+-order
+-payment
+-saved address
+-t&c
+-help
+

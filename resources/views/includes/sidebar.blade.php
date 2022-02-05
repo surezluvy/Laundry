@@ -1,124 +1,119 @@
-<a href="javascript:void(0)" class="overlay-sidebar"></a>
-<div class="header-sidebar">
+<div class="sidebar-wrap  sidebar-fullmenu">
+  <!-- Add pushcontent or fullmenu instead overlay -->
+  <div class="closemenu text-opac">Close Menu</div>
+  <div class="sidebar">
+      <div class="row mt-4 mb-3">
+          @auth
+            <div class="col-auto">
+                <figure class="avatar avatar-60 rounded mx-auto my-1">
+                    <img src="{{ asset('assets/img/user2.jpg') }}" alt="">
+                </figure>
+            </div>
+            <div class="col align-self-center ps-0">
+                <h6 class="mb-0">{{ ucfirst(trans(auth()->user()->full_name)) }}</h6>
+                <p class="text-opac">{{ ucfirst(trans(auth()->user()->address)) }}</p>
+            </div>
+          @else
+            <div class="col-auto">
+                <figure class="avatar avatar-60 rounded mx-auto my-1">
+                    <img src="{{ asset('assets/img/user2.jpg') }}" alt="">
+                </figure>
+            </div>
+            <div class="col align-self-center ps-0">
+                <h6 class="mb-0">Guest</h6>
+                <p class="text-opac">Indonesia</p>
+            </div>
+          @endauth
+      </div>
+      <div class="row">
+          <div class="col-12">
+              <ul class="nav nav-pills">
+                  <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="stats.html">
+                          <div class="avatar avatar-40 rounded icon"><i class="bi bi-house-door"></i></div>
+                          <div class="col">Dashboard</div>
+                          <div class="arrow"><i class="bi bi-arrow-right"></i></div>
+                      </a>
+                  </li>
 
-    @auth
-      <a href="profile-setting.html" class="user-panel">
-        <img src="assets/images/user/1.png" class="img-fluid user-img" alt="">
-        <span>Hello, {{ auth()->user()->full_name }}</span>
-        <i class="iconly-Arrow-Right-2 icli"></i>
-      </a>
-    @else
-      <a href="{{ route('login') }}" class="user-panel">
-        <img src="assets/images/user/1.png" class="img-fluid user-img" alt="">
-        <span>Hello, Guest</span>
-        <i class="iconly-Arrow-Right-2 icli"></i>
-      </a>
-    @endauth
-    <div class="sidebar-content">
-      <ul class="link-section">
-        <li>
-          <a href="pages.html">
-            <i class="iconly-Paper icli"></i>
-            <div class="content">
-              <h4>Pages</h4>
-              <h6>Elements & Other Pages</h6>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="index.html">
-            <i class="iconly-Home icli"></i>
-            <div class="content">
-              <h4>Home</h4>
-              <h6>Offers, Top Deals, Top Brands</h6>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="category.html">
-            <i class="iconly-Category icli"></i>
-            <div class="content">
-              <h4>Shop by Category</h4>
-              <h6>Men, Women, Kids, Beauty.. </h6>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="order-history.html">
-            <i class="iconly-Document icli"></i>
-            <div class="content">
-              <h4>Orders</h4>
-              <h6>Ongoing Orders, Recent Orders..</h6>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="wishlist.html">
-            <i class="iconly-Heart icli"></i>
-            <div class="content">
-              <h4>Your Wishlist</h4>
-              <h6>Your Save Products</h6>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="profile.html">
-            <i class="iconly-Profile icli"></i>
-            <div class="content">
-              <h4>Your Account</h4>
-              <h6>Profile, Settings, Saved Cards...</h6>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src="assets/images/flag.png" class="img-fluid" alt="">
-            <div class="content">
-              <h4>Langauge</h4>
-              <h6>Select your Language here..</h6>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="notification.html">
-            <i class="iconly-Notification icli"></i>
-            <div class="content">
-              <h4>Notification</h4>
-              <h6>Offers, Order tracking messages..</h6>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="settings.html">
-            <i class="iconly-Setting icli"></i>
-            <div class="content">
-              <h4>Settings</h4>
-              <h6>Dark mode, RTL, Notification</h6>
-            </div>
-          </a>
-        </li>
-      </ul>
-      <div class="divider"></div>
-      <ul class="link-section">
-        <li>
-          <a href="about-us.html">
-            <i class="iconly-Info-Square icli"></i>
-            <div class="content">
-              <h4>About us</h4>
-              <h6>About Multikart</h6>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="help.html">
-            <i class="iconly-Call icli"></i>
-            <div class="content">
-              <h4>Help/Customer Care</h4>
-              <h6>Customer Support, FAQs</h6>
-            </div>
-          </a>
-        </li>
-      </ul>
-    </div>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                          aria-expanded="false">
+                          <div class="avatar avatar-40 rounded icon"><i class="bi bi-shop"></i></div>
+                          <div class="col">Shop</div>
+                          <div class="arrow"><i class="bi bi-plus plus"></i> <i class="bi bi-dash minus"></i>
+                          </div>
+                      </a>
+                      <ul class="dropdown-menu">
+                          <li><a class="dropdown-item nav-link active" href="home.html">
+                                  <div class="avatar avatar-40 rounded icon"><i class="bi bi-bag"></i></div>
+                                  <div class="col">Shop home</div>
+                                  <div class="arrow"><i class="bi bi-arrow-right"></i></div>
+                              </a></li>
+                          <li><a class="dropdown-item nav-link" href="product.html">
+                                  <div class="avatar avatar-40 rounded icon"><i class="bi bi-binoculars"></i></div>
+                                  <div class="col">Product</div>
+                                  <div class="arrow"><i class="bi bi-arrow-right"></i></div>
+                              </a></li>
+                          <li><a class="dropdown-item nav-link" href="cart.html">
+                                  <div class="avatar avatar-40 rounded icon"><i class="bi bi-basket3"></i></div>
+                                  <div class="col">Cart</div>
+                                  <div class="arrow"><i class="bi bi-arrow-right"></i></div>
+                              </a></li>
+                          <li><a class="dropdown-item nav-link" href="payment.html">
+                                  <div class="avatar avatar-40 rounded icon"><i class="bi bi-credit-card"></i></div>
+                                  <div class="col">Payment</div>
+                                  <div class="arrow"><i class="bi bi-arrow-right"></i></div>
+                              </a></li>
+                          <li><a class="dropdown-item nav-link" href="my-orders.html">
+                                  <div class="avatar avatar-40 rounded icon"><i class="bi bi-box-seam"></i></div>
+                                  <div class="col">My Orders</div>
+                                  <div class="arrow"><i class="bi bi-arrow-right"></i></div>
+                              </a></li>
+                      </ul>
+                  </li>
+
+                  <li class="nav-item">
+                      <a class="nav-link" href="chat.html" tabindex="-1">
+                          <div class="avatar avatar-40 rounded icon"><i class="bi bi-chat-text"></i></div>
+                          <div class="col">Messages</div>
+                          <div class="arrow"><i class="bi bi-arrow-right"></i></div>
+                      </a>
+                  </li>
+
+                  <li class="nav-item">
+                      <a class="nav-link" href="notifications.html" tabindex="-1">
+                          <div class="avatar avatar-40 rounded icon"><i class="bi bi-bell"></i></div>
+                          <div class="col">Notification</div>
+                          <div class="arrow"><i class="bi bi-arrow-right"></i></div>
+                      </a>
+                  </li>
+
+                  <li class="nav-item">
+                      <a class="nav-link" href="settings.html" tabindex="-1">
+                          <div class="avatar avatar-40 rounded icon"><i class="bi bi-gear"></i></div>
+                          <div class="col">Settings</div>
+                          <div class="arrow"><i class="bi bi-arrow-right"></i></div>
+                      </a>
+                  </li>
+
+                  <li class="nav-item">
+                      <a class="nav-link" href="pages.html" tabindex="-1">
+                          <div class="avatar avatar-40 rounded icon"><i class="bi bi-file-earmark-text"></i></div>
+                          <div class="col">Pages <span class="badge bg-info fw-light">new</span></div>
+                          <div class="arrow"><i class="bi bi-arrow-right"></i></div>
+                      </a>
+                  </li>
+
+                  <li class="nav-item">
+                      <a class="nav-link" href="signin.html" tabindex="-1">
+                          <div class="avatar avatar-40 rounded icon"><i class="bi bi-box-arrow-right"></i></div>
+                          <div class="col">Logout</div>
+                          <div class="arrow"><i class="bi bi-arrow-right"></i></div>
+                      </a>
+                  </li>
+              </ul>
+          </div>
+      </div>
   </div>
-<!-- header end -->
+</div>

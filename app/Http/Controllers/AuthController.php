@@ -10,7 +10,7 @@ class AuthController extends Controller
 {
     // Register
     function register(){
-        return view('auth.register');
+        return view('main.auth.register');
     }
     function store(Request $request){
         $validateData = $request->validate([
@@ -31,7 +31,24 @@ class AuthController extends Controller
     }
     // Login
     function login(){
-        return view('auth.login');
+        return view('main.auth.login');
+    }
+    public function authenticate(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            $request->session()->put('user', auth()->user());
+            // $data = $request->session()->all();
+
+            return redirect()->intended('/');
+        }
+
+        return back()->with('loginError', 'Login gagal! Silahkan perbaiki data anda');
     }
     function auth(Request $request){
         $credentials = $request->validate([
@@ -49,5 +66,9 @@ class AuthController extends Controller
         }
 
         return back()->with('loginError', 'Login gagal! Silahkan perbaiki data anda');
+    }
+    function logout(Request $request){
+        $request->session()->flush();
+        return redirect('login')->with('success', 'Berhasil logout.');
     }
 }
