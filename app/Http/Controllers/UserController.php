@@ -19,34 +19,74 @@ class UserController extends Controller
         return view('main.user.setting');
     }
     
-    function profileChange(Request $request, $id){
-        $validateData = $request->validate([
-            'full_name' => 'required|min:3|string',
-            'email' => 'required|email:dns',
-            'phone' => 'required|min:10',
-            'address' => 'required|min:5',
-            'password' => 'required|min:8'
+    function addressChange(){
+        return view('main.user.address-change');
+    }
+    
+    function profileChange(Request $request){
+
+        // $data = User::findOrFail(auth()->user()->user_id);
+        
+        if($request->password == null){
+            $validateData = $request->validate([
+                'full_name' => 'required|min:3|string',
+                'email' => 'required|email:dns',
+                'phone' => 'required|min:10',
+                'address' => 'required|min:5',
+                'address_detail' => 'required|min:5',
+            ]);
+
+            $user = User::findOrFail(auth()->user()->user_id)->update([
+                'full_name' => $request->full_name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'address_detail' => $request->address_detail,
+            ]);
+
+            if($user){
+                return redirect()->route('profile')->with(['success' => 'Berhasil memperbarui data']);
+            } else{
+                return redirect()->route('profile')->with(['error' => 'Gagal memperbarui data']);
+            }
+        } else{
+            $validateData = $request->validate([
+                'full_name' => 'required|min:3|string',
+                'email' => 'required|email:dns',
+                'phone' => 'required|min:10',
+                'address' => 'required|min:5',
+                'address_detail' => 'required|min:5',
+                'password' => 'min:8'
+            ]);
+            $validateData['password'] = bcrypt($validateData['password']);
+            
+            $user = User::findOrFail(auth()->user()->user_id)->update([
+                'full_name' => $request->full_name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'address' => $request->address,
+                'address_detail' => $request->address_detail,
+                'password' => $validateData['password'],
+            ]);
+
+            if($user){
+                return redirect()->route('profile')->with(['success' => 'Berhasil memperbarui data']);
+            } else{
+                return redirect()->route('profile')->with(['error' => 'Gagal memperbarui data']);
+            }
+        }
+    }
+
+    function addressChangeProcess(Request $request){
+        $user = User::findOrFail(auth()->user()->user_id)->update([
+            'user_lat' => $request->user_lat,
+            'user_long' => $request->user_long,
         ]);
 
-        if($validateData['password'] != null){
-            $validateData['password'] = bcrypt($validateData['password']);
-        }
-
-        // $data = User::findOrFail($request->user_id);
-
-        // $data->update([
-        //     'full_name' => $request->full_name,
-        //     'email' => $request->email,
-        //     'phone' => $request->phone,
-        //     'address' => $request->address,
-        //     'password' => $request->password,
-        // ]);
-        $user = User::findOrFail($id)->update($request->all()); 
-
         if($user){
-            return redirect()->route('profile')->with(['success' => 'Berhasil memperbarui data']);
+            return redirect()->route('profile')->with(['success' => 'Alamat berhasil memperbarui data']);
         } else{
-            return redirect()->route('profile')->with(['error' => 'Gagal memperbarui data']);
+            return redirect()->route('profile')->with(['error' => 'Alamat gagal memperbarui data']);
         }
     }
 
@@ -70,7 +110,7 @@ class UserController extends Controller
         User::create($validateData);
 
         // $request->session()->flash('success', 'Berhasil mendaftar! Silahkan masuk');
-        return redirect('login')->with('success', 'Berhasil mendaftar! Silahkan masuk');
+        return redirect('user/login')->with('success', 'Berhasil mendaftar! Silahkan masuk');
     }
 
     // Login
@@ -119,6 +159,6 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('login')->with('success', 'Berhasil logout.');
+        return redirect('user/login')->with('success', 'Berhasil logout.');
     }
 }

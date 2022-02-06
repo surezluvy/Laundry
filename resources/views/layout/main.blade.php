@@ -36,6 +36,7 @@
 </head>
 
 <body class="body-scroll @yield('body-class')" data-page="@yield('data-page')" onload="getLocation()">
+{{-- <body class="body-scroll @yield('body-class')" data-page="@yield('data-page')" onload="getReverseGeocodingData('-7.362690', '109.265381')"> --}}
 
     <!-- loader section -->
     {{-- @include('includes.loader') --}}
@@ -143,8 +144,25 @@
                 break; 
             }
         }
+        // function getReverseGeocodingData(lat, long) {
+        //     var latlng = new google.maps.LatLng(lat, long);
+        //     // This is making the Geocode request
+        //     var geocoder = new google.maps.Geocoder();
+        //     geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+        //         if (status !== google.maps.GeocoderStatus.OK) {
+        //             alert(status);
+        //         }
+        //         // This is checking to see if the Geoeode Status is OK before proceeding
+        //         if (status == google.maps.GeocoderStatus.OK) {
+        //             console.log(results);
+        //             var address = (results[0].formatted_address);
+        //         }
+        //     });
+        // }
+        
     </script>
 
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
     <!-- Required jquery and libraries -->
     <script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>

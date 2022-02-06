@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,8 +41,10 @@ Route::prefix('/user')->group(function () {
 
         Route::group(['middleware' => 'auth'], function () {
             // Profile
-            Route::get('/profile', 'profile')->name('profile');
+            Route::get('/', 'profile')->name('profile');
             Route::get('/setting', 'setting')->name('setting');
+            Route::get('/address-change', 'addressChange')->name('address-change');
+            Route::post('/address-change', 'addressChangeProcess')->name('address-change');
             Route::post('/profile-change', 'profileChange')->name('profile-change');
         
             // Logout
@@ -67,8 +70,24 @@ Route::prefix('/booking')->group(function () {
     Route::controller(BookingController::class)->group(function () {
 
         Route::group(['middleware' => 'auth'], function () {
-
             Route::get('/all_booking', 'all_booking')->name('all_booking');
+        });
+
+    });
+
+});
+
+
+Route::prefix('/admin')->group(function () {
+
+    Route::controller(AdminController::class)->group(function () {
+
+        Route::middleware(['admin', 'auth'])->group(function () {
+            Route::get('/', 'dashboard')->name('dashboard');
+        });
+
+        Route::middleware(['guest'])->group(function () {
+            Route::get('/login', 'login')->name('admin-login');
         });
 
     });

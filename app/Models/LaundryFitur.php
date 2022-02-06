@@ -10,6 +10,6 @@ class LaundryFitur extends Model
     use HasFactory;
 
     public function laundry(){
-        return $this->hasMany(Laundry::class);
+        return $this->hasOne(Laundry::class);
     }
 }

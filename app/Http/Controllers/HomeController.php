@@ -14,8 +14,7 @@ use App\Models\Booking;
 class HomeController extends Controller
 {
     function index(Request $request){
-        $data = DB::table('laundries')
-        ->selectRaw('laundries.*, (6371 * acos (cos ( radians(-7.4161) ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians(109.2899) ) + sin ( radians(-7.4161) ) * sin( radians( laundry_lat ) ))) AS distance')
+        $data = Laundry::selectRaw('laundries.*, (6371 * acos (cos ( radians(-7.4161) ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians(109.2899) ) + sin ( radians(-7.4161) ) * sin( radians( laundry_lat ) ))) AS distance')
         ->havingRaw('distance <= 20')
         ->take(5)
         ->get();
@@ -33,8 +32,7 @@ class HomeController extends Controller
     }
 
     function allLaundry(){
-        $data = DB::table('laundries')
-        ->selectRaw('laundries.*, (6371 * acos (cos ( radians(-7.4161) ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians(109.2899) ) + sin ( radians(-7.4161) ) * sin( radians( laundry_lat ) ))) AS distance')
+        $data = Laundry::selectRaw('laundries.*, (6371 * acos (cos ( radians(-7.4161) ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians(109.2899) ) + sin ( radians(-7.4161) ) * sin( radians( laundry_lat ) ))) AS distance')
         ->orderBy('distance', 'asc')
         ->get();
 
@@ -42,14 +40,13 @@ class HomeController extends Controller
     }
 
     function detail($id){
-        $data = DB::table('laundries')
-        ->selectRaw('laundries.*, (6371 * acos (cos ( radians(-7.4161) ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians(109.2899) ) + sin ( radians(-7.4161) ) * sin( radians( laundry_lat ) ))) AS distance')
+        $data = Laundry::selectRaw('laundries.*, (6371 * acos (cos ( radians(-7.4161) ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians(109.2899) ) + sin ( radians(-7.4161) ) * sin( radians( laundry_lat ) ))) AS distance')
         ->where('laundry_id', $id)
         ->havingRaw('distance <= 20')
+        ->with(['laundryFitur'])
         ->get();
         
-        $latest = DB::table('laundries')
-        ->selectRaw('laundries.*, (6371 * acos (cos ( radians(-7.4161) ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians(109.2899) ) + sin ( radians(-7.4161) ) * sin( radians( laundry_lat ) ))) AS distance')
+        $latest = Laundry::selectRaw('laundries.*, (6371 * acos (cos ( radians(-7.4161) ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians(109.2899) ) + sin ( radians(-7.4161) ) * sin( radians( laundry_lat ) ))) AS distance')
         ->where('laundry_id', '!=', $id)
         ->havingRaw('distance <= 20')
         ->get(3);
@@ -60,8 +57,7 @@ class HomeController extends Controller
     }
 
     function pesan($id, $metode = null){
-        $data = DB::table('laundries')
-        ->selectRaw('laundries.*, (6371 * acos (cos ( radians(-7.4161) ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians(109.2899) ) + sin ( radians(-7.4161) ) * sin( radians( laundry_lat ) ))) AS distance')
+        $data = Laundry::selectRaw('laundries.*, (6371 * acos (cos ( radians(-7.4161) ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians(109.2899) ) + sin ( radians(-7.4161) ) * sin( radians( laundry_lat ) ))) AS distance')
         ->where('laundry_id', $id)
         ->havingRaw('distance <= 20')
         ->get();
@@ -116,6 +112,6 @@ class HomeController extends Controller
         ]);
 
         // $request->session()->flash('success', 'Berhasil mendaftar! Silahkan masuk');
-        return redirect('profile')->with('success', 'Pemesanan berhasil, silahkan lihat riwayat anda dibawah');
+        return redirect('user/profile')->with('success', 'Pemesanan berhasil, silahkan lihat riwayat anda dibawah');
     }
 }

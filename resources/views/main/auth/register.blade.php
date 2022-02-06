@@ -21,7 +21,7 @@
                     <h2 class="text-center mb-4">Sign up</h2>
                     <div class="card card-light shadow-sm mb-4">
                         <div class="card-body">
-                            <form class="registerForm" class="" method="post" action="{{ route('store') }}">
+                            <form class="registerForm" method="post" action="{{ route('store') }}">
                                 @csrf
                                 <input type="hidden" name="user_lat" class="form-control" value="">
                                 <input type="hidden" name="user_long" class="form-control" value="">

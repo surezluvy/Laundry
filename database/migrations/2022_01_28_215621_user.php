@@ -16,8 +16,8 @@ class User extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id('user_id')->autoIncrement();
             $table->string('full_name');
-            $table->string('email');
-            $table->string('phone');
+            $table->string('email')->unique();
+            $table->string('phone')->unique();
             $table->text('address');
             $table->text('address_detail');
             $table->string('password');

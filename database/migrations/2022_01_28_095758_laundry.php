@@ -15,6 +15,8 @@ class Laundry extends Migration
     {
         Schema::create('laundries', function (Blueprint $table) {
             $table->id('laundry_id')->autoIncrement();
+            $table->foreignId('admin_id');
+            $table->foreign('admin_id')->references('admin_id')->on('admins');
             $table->string('laundry_name');
             $table->string('laundry_description');
             $table->text('laundry_address');
