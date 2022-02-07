@@ -21,12 +21,11 @@ Route::prefix('/')->group(function () {
 
     Route::controller(HomeController::class)->group(function () {
 
-        Route::get('/', 'index')->name('home');
-        Route::post('/', 'index')->name('home');
-        Route::get('/all-laundry', 'allLaundry')->name('all-laundry');
-        Route::get('/detail/{id}', 'detail')->name('detail');
-
         Route::group(['middleware' => 'auth'], function () {
+            Route::get('/', 'index')->name('home');
+            Route::post('/', 'index')->name('home');
+            Route::get('/all-laundry', 'allLaundry')->name('all-laundry');
+            Route::get('/detail/{id}', 'detail')->name('detail');
             Route::get('/pesan/{laundry_id}/{metode?}', 'pesan')->name('pesan');
             Route::post('/proses_pesan', 'proses_pesan')->name('proses_pesan');
         });
@@ -88,6 +87,7 @@ Route::prefix('/admin')->group(function () {
 
         Route::middleware(['guest'])->group(function () {
             Route::get('/login', 'login')->name('admin-login');
+            Route::post('/login', 'loginProcess')->name('admin-login');
         });
 
     });

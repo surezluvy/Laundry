@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -14,5 +15,21 @@ class AdminController extends Controller
 
     function login(){
         return view('admin.login');
+    }
+    function loginProcess(Request $request){
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            $request->session()->put('user', auth()->user());
+            // $data = $request->session()->all();
+
+            return redirect()->intended('/');
+        }
+
+        return back()->with('error', 'Login gagal! Silahkan perbaiki data anda');
     }
 }

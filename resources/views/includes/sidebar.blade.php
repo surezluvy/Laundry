@@ -52,13 +52,15 @@
                       </a>
                   </li>
 
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ route('logout') }}" tabindex="-1">
-                          <div class="avatar avatar-40 rounded icon"><i class="bi bi-box-arrow-right"></i></div>
-                          <div class="col">Logout</div>
-                          <div class="arrow"><i class="bi bi-arrow-right"></i></div>
-                      </a>
-                  </li>
+                @auth
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('logout') }}" tabindex="-1">
+                        <div class="avatar avatar-40 rounded icon"><i class="bi bi-box-arrow-right"></i></div>
+                        <div class="col">Logout</div>
+                        <div class="arrow"><i class="bi bi-arrow-right"></i></div>
+                    </a>
+                </li>
+                @endauth
               </ul>
           </div>
       </div>

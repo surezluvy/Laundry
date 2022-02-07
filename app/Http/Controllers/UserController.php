@@ -6,9 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Booking;
+use App\Models\Admin;
 
 class UserController extends Controller
 {
+    // public function __construct() {
+    //     $this->middleware('auth:admin');
+    // }
     // Profile
     function profile(){
         $data = Booking::with(['laundry', 'user'])->where('user_id', auth()->user()->user_id)->latest()->take(3)->get();
@@ -106,8 +110,15 @@ class UserController extends Controller
             'password' => 'required|min:8'
         ]);
 
+        // $validateData = $request->validate([
+        //     'email' => 'required|email:dns|unique:admins',
+        //     'phone' => 'required|min:10|unique:admins',
+        //     'password' => 'required|min:8'
+        // ]);
+
         $validateData['password'] = bcrypt($validateData['password']);
         User::create($validateData);
+        // Admin::create($validateData);
 
         // $request->session()->flash('success', 'Berhasil mendaftar! Silahkan masuk');
         return redirect('user/login')->with('success', 'Berhasil mendaftar! Silahkan masuk');
@@ -117,23 +128,23 @@ class UserController extends Controller
     function login(){
         return view('main.auth.login');
     }
-    public function authenticate(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
+    // public function authenticate(Request $request)
+    // {
+    //     $credentials = $request->validate([
+    //         'email' => ['required', 'email'],
+    //         'password' => ['required'],
+    //     ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            $request->session()->put('user', auth()->user());
-            // $data = $request->session()->all();
+    //     if (Auth::attempt($credentials)) {
+    //         $request->session()->regenerate();
+    //         $request->session()->put('user', auth()->user());
+    //         // $data = $request->session()->all();
 
-            return redirect()->intended('/');
-        }
+    //         return redirect()->intended('/');
+    //     }
 
-        return back()->with('loginError', 'Login gagal! Silahkan perbaiki data anda');
-    }
+    //     return back()->with('error', 'Login gagal! Silahkan perbaiki data anda');
+    // }
     function auth(Request $request){
         $credentials = $request->validate([
             'email' => 'required|email:dns',
@@ -149,7 +160,7 @@ class UserController extends Controller
             // return(auth()->user());
         }
 
-        return back()->with('loginError', 'Login gagal! Silahkan perbaiki data anda');
+        return back()->with('error', 'Login gagal! Silahkan perbaiki data anda');
     }
 
     // Logout

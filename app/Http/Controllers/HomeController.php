@@ -14,14 +14,14 @@ use App\Models\Booking;
 class HomeController extends Controller
 {
     function index(Request $request){
-        $data = Laundry::selectRaw('laundries.*, (6371 * acos (cos ( radians(-7.4161) ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians(109.2899) ) + sin ( radians(-7.4161) ) * sin( radians( laundry_lat ) ))) AS distance')
+        $data = Laundry::selectRaw('laundries.*, (6371 * acos (cos ( radians('.auth()->user()->user_lat.') ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians('.auth()->user()->user_long.') ) + sin ( radians('.auth()->user()->user_lat.') ) * sin( radians( laundry_lat ) ))) AS distance')
         ->havingRaw('distance <= 20')
         ->take(5)
         ->get();
 
         if($request->search != null){
             $data = DB::table('laundries')
-            ->selectRaw('laundries.*, (6371 * acos (cos ( radians(-7.4161) ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians(109.2899) ) + sin ( radians(-7.4161) ) * sin( radians( laundry_lat ) ))) AS distance')
+            ->selectRaw('laundries.*, (6371 * acos (cos ( radians('.auth()->user()->user_lat.') ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians('.auth()->user()->user_long.') ) + sin ( radians('.auth()->user()->user_lat.') ) * sin( radians( laundry_lat ) ))) AS distance')
             ->havingRaw('distance <= 20')
             ->where('laundry_name', 'like', '%'.$request->search.'%')
             ->take(5)
@@ -32,7 +32,7 @@ class HomeController extends Controller
     }
 
     function allLaundry(){
-        $data = Laundry::selectRaw('laundries.*, (6371 * acos (cos ( radians(-7.4161) ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians(109.2899) ) + sin ( radians(-7.4161) ) * sin( radians( laundry_lat ) ))) AS distance')
+        $data = Laundry::selectRaw('laundries.*, (6371 * acos (cos ( radians('.auth()->user()->user_lat.') ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians('.auth()->user()->user_long.') ) + sin ( radians('.auth()->user()->user_lat.') ) * sin( radians( laundry_lat ) ))) AS distance')
         ->orderBy('distance', 'asc')
         ->get();
 
@@ -40,13 +40,13 @@ class HomeController extends Controller
     }
 
     function detail($id){
-        $data = Laundry::selectRaw('laundries.*, (6371 * acos (cos ( radians(-7.4161) ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians(109.2899) ) + sin ( radians(-7.4161) ) * sin( radians( laundry_lat ) ))) AS distance')
+        $data = Laundry::selectRaw('laundries.*, (6371 * acos (cos ( radians('.auth()->user()->user_lat.') ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians('.auth()->user()->user_long.') ) + sin ( radians('.auth()->user()->user_lat.') ) * sin( radians( laundry_lat ) ))) AS distance')
         ->where('laundry_id', $id)
         ->havingRaw('distance <= 20')
         ->with(['laundryFitur'])
         ->get();
         
-        $latest = Laundry::selectRaw('laundries.*, (6371 * acos (cos ( radians(-7.4161) ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians(109.2899) ) + sin ( radians(-7.4161) ) * sin( radians( laundry_lat ) ))) AS distance')
+        $latest = Laundry::selectRaw('laundries.*, (6371 * acos (cos ( radians('.auth()->user()->user_lat.') ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians('.auth()->user()->user_long.') ) + sin ( radians('.auth()->user()->user_lat.') ) * sin( radians( laundry_lat ) ))) AS distance')
         ->where('laundry_id', '!=', $id)
         ->havingRaw('distance <= 20')
         ->get(3);
@@ -57,7 +57,7 @@ class HomeController extends Controller
     }
 
     function pesan($id, $metode = null){
-        $data = Laundry::selectRaw('laundries.*, (6371 * acos (cos ( radians(-7.4161) ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians(109.2899) ) + sin ( radians(-7.4161) ) * sin( radians( laundry_lat ) ))) AS distance')
+        $data = Laundry::selectRaw('laundries.*, (6371 * acos (cos ( radians('.auth()->user()->user_lat.') ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians('.auth()->user()->user_long.') ) + sin ( radians('.auth()->user()->user_lat.') ) * sin( radians( laundry_lat ) ))) AS distance')
         ->where('laundry_id', $id)
         ->havingRaw('distance <= 20')
         ->get();
