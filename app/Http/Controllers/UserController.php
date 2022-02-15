@@ -10,10 +10,6 @@ use App\Models\Admin;
 
 class UserController extends Controller
 {
-    // public function __construct() {
-    //     $this->middleware('auth:admin');
-    // }
-    // Profile
     function profile(){
         $data = Booking::with(['laundry', 'user'])->where('user_id', auth()->user()->user_id)->latest()->take(3)->get();
         return view('main.user.profile', compact('data'));
@@ -105,6 +101,7 @@ class UserController extends Controller
             'phone' => 'required|min:10|unique:users',
             'address' => 'required|min:5',
             'address_detail' => 'required|min:5',
+            'level' => 'customer',
             'user_lat' => 'required',
             'user_long' => 'required',
             'password' => 'required|min:8'

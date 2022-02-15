@@ -27,21 +27,25 @@
                         <h1 class="">Sign In</h1>
                         <p class="">Log in to your account to continue.</p>
                         
-                        <form class="text-left needs-validation" novalidate action="javascript:void(0);" method="post" action="{{ route('admin-login') }}">
+                        <form class="text-left needs-validation" novalidate method="post" action="{{ route('admin-login') }}">
                             @csrf
 
                             @if(session()->has('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                {{ session('success') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
+                                <strong>{{ session('success') }}</strong> 
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
                             @endif
     
                             @if(session()->has('error'))
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                {{ session('error') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
+                                <strong>{{ session('error') }}</strong> 
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
                             @endif
 
                             <div class="form">

@@ -28,6 +28,7 @@ class HomeController extends Controller
             ->get();
         }
         
+        // dd(auth()->user()->role);
         return view('main.laundry.index', compact('data'));
     }
 
@@ -112,6 +113,6 @@ class HomeController extends Controller
         ]);
 
         // $request->session()->flash('success', 'Berhasil mendaftar! Silahkan masuk');
-        return redirect('user/profile')->with('success', 'Pemesanan berhasil, silahkan lihat riwayat anda dibawah');
+        return redirect('user')->with('success', 'Pemesanan berhasil, silahkan lihat riwayat anda dibawah');
     }
 }

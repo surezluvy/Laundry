@@ -142,6 +142,8 @@
             </form>
         </div>
 
+        <div style="margin-bottom: 80px"></div>
+
     </div>
             
     @endforeach

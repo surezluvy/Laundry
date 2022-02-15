@@ -49,4 +49,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function laundry(){
+        return $this->belongsTo(Laundry::class, 'laundry_id', 'laundry_id');
+    }
 }

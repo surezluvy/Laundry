@@ -21,7 +21,7 @@ Route::prefix('/')->group(function () {
 
     Route::controller(HomeController::class)->group(function () {
 
-        Route::group(['middleware' => 'auth'], function () {
+        Route::group(['middleware' => ['auth', 'customer']], function () {
             Route::get('/', 'index')->name('home');
             Route::post('/', 'index')->name('home');
             Route::get('/all-laundry', 'allLaundry')->name('all-laundry');
@@ -38,7 +38,7 @@ Route::prefix('/user')->group(function () {
 
     Route::controller(UserController::class)->group(function () {
 
-        Route::group(['middleware' => 'auth'], function () {
+        Route::group(['middleware' => ['auth', 'customer']], function () {
             // Profile
             Route::get('/', 'profile')->name('profile');
             Route::get('/setting', 'setting')->name('setting');
@@ -68,7 +68,7 @@ Route::prefix('/booking')->group(function () {
 
     Route::controller(BookingController::class)->group(function () {
 
-        Route::group(['middleware' => 'auth'], function () {
+        Route::group(['middleware' => ['auth', 'customer']], function () {
             Route::get('/all_booking', 'all_booking')->name('all_booking');
         });
 
@@ -81,8 +81,30 @@ Route::prefix('/admin')->group(function () {
 
     Route::controller(AdminController::class)->group(function () {
 
-        Route::middleware(['admin', 'auth'])->group(function () {
-            Route::get('/', 'dashboard')->name('dashboard');
+        Route::middleware(['adminMitra', 'auth'])->group(function () {
+            Route::get('/', 'dashboard')->name('admin-dashboard');
+            
+            Route::prefix('/booking')->middleware(['admin'])->group(function () {
+                Route::get('/', 'booking')->name('booking-data');
+                Route::post('/update', 'bookingUpdate')->name('booking-update');
+                Route::get('/{id}/{status}', 'changeStatus')->name('change-status');
+            });
+
+            Route::prefix('/mitra')->middleware(['admin'])->group(function () {
+                Route::get('/', 'mitra')->name('mitra-data');
+            });
+
+            Route::prefix('/customer')->middleware(['admin'])->group(function () {
+                Route::get('/', 'customer')->name('customer-data');
+                Route::post('/update', 'customerUpdate')->name('customer-update');
+            });
+
+            Route::prefix('/laundry')->middleware(['admin'])->group(function () {
+                Route::get('/', 'laundry')->name('laundry-data');
+                Route::post('/update', 'laundryUpdate')->name('laundry-update');
+            });
+
+            Route::get('/logout', 'logout')->name('admin-logout');
         });
 
         Route::middleware(['guest'])->group(function () {

@@ -14,6 +14,9 @@ class Laundry extends Model
         return $this->belongsTo(LaundryFitur::class, 'laundry_id', 'laundry_id');
     }
 
+    public function user(){
+        return $this->hasOne(User::class);
+    }
     public function booking(){
         return $this->hasOne(Booking::class);
     }

@@ -6,7 +6,7 @@ use Auth;
 use Closure;
 use Illuminate\Http\Request;
 
-class isAdmin
+class isMitra
 {
     /**
      * Handle an incoming request.
@@ -18,12 +18,12 @@ class isAdmin
     public function handle(Request $request, Closure $next)
     {
         
-        if (Auth::user()->level == 'admin') { 
+        if (Auth::user()->level == 'mitra') { 
             return $next($request);
-        } elseif (Auth::user()->level == 'mitra') { 
-            return back()->with('error', 'Cannot access to restricted page');
+        } elseif (Auth::user()->level == 'admin') { 
+            abort(403, "Cannot access to restricted page");
         } elseif (Auth::user()->level == 'customer') { 
-            return back()->with('error', 'Cannot access to restricted page');
+            abort(403, "Cannot access to restricted page");
         }
 
     }

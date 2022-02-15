@@ -22,7 +22,9 @@ class Booking extends Migration
             $table->foreignId('user_id');
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->string('metode');
+            $table->enum('status', ['menunggu', 'diproses', 'selesai'])->default('menunggu');
             $table->string('subtotal');
+            $table->integer('weight')->nullable();
             $table->timestamps();
         });
     }

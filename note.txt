@@ -1,3 +1,6 @@
 penggunaan kupon diskon
 
-ubah lat long pengguna
+ubah lat long pengguna +
+
+Menggunakan cascade on delete user on
+    ketika user id 1 dihapus maka setiap booking dengan id 1 akan di hapus
