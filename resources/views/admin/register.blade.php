@@ -59,6 +59,16 @@
                                     </div>
                                     @enderror
                                 </div><br>
+                                
+                                <div id="password-field" class="input mb-2">
+                                    <div class="d-flex justify-content-between">
+                                        <label for="role">Role</label>
+                                    </div>
+                                    <select id="role" name="level" class="form-control @error('role') is-invalid @enderror" placeholder="Password">
+                                        <option value="mitra">Mitra, <small>Yang mempunyai laundry, dapat melihat pendapatan dan mengatur pemesanan dan mengatur laundry</small></option>
+                                        <option value="admin">Admin, <small>Dapat mengatur customer dan mitra</small></option>
+                                    </select>
+                                </div>
 
                                 <div id="password-field" class="input mb-2">
                                     <div class="d-flex justify-content-between">

@@ -85,7 +85,7 @@
                                       <span>OR</span>
                                 </div>
 
-                                <p class="signup-link">Belum terdaftar ? <a href="auth_register_boxed.html">Daftar sebagain mitra</a></p>
+                                <p class="signup-link">Belum terdaftar ? <a href="{{ route('admin-register') }}">Daftar sebagain mitra</a></p>
 
                             </div>
                         </form>

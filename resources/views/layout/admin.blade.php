@@ -44,7 +44,7 @@
                         <p class="modal-text">Klik lanjutkan untuk mendaftarkan laundry anda.</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="{{ route('admin-logout') }}" class="btn btn-danger" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Logout</a>
+                    <a href="{{ route('admin-logout') }}" class="btn btn-danger"><i class="flaticon-cancel-12"></i> Logout</a>
                     <a href="{{ route('register-laundry') }}" type="button" class="btn btn-primary">Lanjutkan</a>
                 </div>
             </div>

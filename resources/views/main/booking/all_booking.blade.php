@@ -38,11 +38,10 @@
         <!-- cart items -->
         <div class="row mb-3">
             <div class="col align-self-center">
-                <h5 class="mb-0">Semua pesanan</h5>
+                <h5 class="mb-0">Semua transaksi</h5>
             </div>
         </div>
         <div class="row mb-2">
-
 
             @foreach ($data as $d)
             <div class="col-12 col-md-6 col-lg-4">

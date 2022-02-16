@@ -109,8 +109,8 @@ class HomeController extends Controller
             'user_id' => $request->user_id,
             'metode' => $request->metode,
             'subtotal' => $request->subtotal,
-            'berat' => '',
         ]);
+        // dd($request);
 
         // $request->session()->flash('success', 'Berhasil mendaftar! Silahkan masuk');
         return redirect('user')->with('success', 'Pemesanan berhasil, silahkan lihat riwayat anda dibawah');

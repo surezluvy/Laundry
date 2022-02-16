@@ -62,7 +62,7 @@
                 <div class="row mb-4">
                     <div class="col">
                         <h5 class="mb-0">Rp. {{ number_format($d->laundry_price,2,',','.') }} /kg</h5>
-                        <p class="text-opac">10:00am - 11:00pm</p>
+                        <p class="text-opac">{{ $d->laundry_open }}</p>
                     </div>
                     {{-- <div class="col-auto align-self-center">
                         <!-- button counter increamenter-->

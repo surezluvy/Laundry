@@ -186,10 +186,11 @@ class AdminController extends Controller
             'full_name' => 'required|min:3|string',
             'email' => 'required|email:dns|unique:users',
             'phone' => 'required|min:10|unique:users',
+            'level' => 'required',
             'password' => 'required|min:8'
         ]);
 
-        $validateData['level'] = 'mitra';
+        // $validateData['level'] = 'mitra';
         $validateData['password'] = bcrypt($validateData['password']);
         User::create($validateData);
 
