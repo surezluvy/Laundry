@@ -123,7 +123,7 @@
     </div> --}}
 
     <script>
-         function getLocation() {
+        function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition, showError);
             } else { 

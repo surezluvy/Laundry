@@ -6,7 +6,7 @@ use Auth;
 use Closure;
 use Illuminate\Http\Request;
 
-class isMitra
+class mitraDontHaveLaundry
 {
     /**
      * Handle an incoming request.
@@ -17,14 +17,10 @@ class isMitra
      */
     public function handle(Request $request, Closure $next)
     {
-        
-        if (Auth::user()->level == 'mitra') { 
+        if (Auth::user()->laundry_id == null) { 
             return $next($request);
-        } elseif (Auth::user()->level == 'admin') { 
-            return back()->with('error', 'Cannot access to restricted page');
-        } elseif (Auth::user()->level == 'customer') { 
+        }else{
             return back()->with('error', 'Cannot access to restricted page');
         }
-
     }
 }

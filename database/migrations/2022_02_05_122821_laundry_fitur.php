@@ -17,7 +17,7 @@ class LaundryFitur extends Migration
         Schema::create('laundry_fiturs', function (Blueprint $table) {
             $table->id('laundryFitur_id')->autoIncrement();
             $table->foreignId('laundry_id');
-            $table->foreign('laundry_id')->references('laundry_id')->on('laundries');
+            $table->foreign('laundry_id')->references('laundry_id')->on('laundries')->onDelete('cascade');
             $table->string('laundryFitur_name');
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class LaundryFitur extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('laundry_fiturs');
     }
 }

@@ -84,25 +84,48 @@ Route::prefix('/admin')->group(function () {
         Route::middleware(['adminMitra', 'auth'])->group(function () {
             Route::get('/', 'dashboard')->name('admin-dashboard');
             
-            Route::prefix('/booking')->middleware(['admin'])->group(function () {
-                Route::get('/', 'booking')->name('booking-data');
-                Route::post('/update', 'bookingUpdate')->name('booking-update');
-                Route::get('/{id}/{status}', 'changeStatus')->name('change-status');
+            Route::middleware(['admin'])->group(function () {
+                Route::prefix('/mitra')->group(function () {
+                    Route::get('/', 'mitra')->name('mitra-data');
+                    Route::post('/update/{id}', 'mitraUpdate')->name('mitra-update');
+                    Route::post('/delete/{id}', 'mitraDelete')->name('mitra-delete');
+                });
+    
+                Route::prefix('/customer')->group(function () {
+                    Route::get('/', 'customer')->name('customer-data');
+                    Route::post('/update/{id}', 'customerUpdate')->name('customer-update');
+                    Route::post('/delete/{id}', 'customerDelete')->name('customer-delete');
+                });
+    
+                Route::prefix('/laundry')->group(function () {
+                    Route::get('/', 'laundry')->name('laundry-data');
+                    Route::post('/update/{id}', 'laundryUpdate')->name('laundry-update');
+                    Route::post('/delete/{id}', 'laundryDelete')->name('laundry-delete');
+                });
+            });
+            
+            Route::middleware(['mitra'])->group(function () {
+                Route::prefix('/booking')->group(function () {
+                    Route::get('/', 'booking')->name('booking-data');
+                    Route::post('/update/{id}', 'bookingUpdate')->name('booking-update');
+                    Route::get('/{id}/{status}', 'changeStatus')->name('change-status');
+                });
+
+                Route::middleware(['mitraDontHaveLaundry'])->group(function () {
+                    Route::get('/daftarkan-laundry', 'registerLaundry')->name('register-laundry');
+                    Route::post('/daftarkan-laundry', 'registerLaundryProccess')->name('register-laundry');
+                });
+                
+                Route::get('/laundry-change', 'laundryChange')->name('admin-laundry-change');
+                Route::post('/laundry-change-process/{id}', 'laundryChangeProccess')->name('admin-laundry-change-process');
             });
 
-            Route::prefix('/mitra')->middleware(['admin'])->group(function () {
-                Route::get('/', 'mitra')->name('mitra-data');
-            });
+            Route::get('/profile2', 'profile2')->name('admin-profile2');
 
-            Route::prefix('/customer')->middleware(['admin'])->group(function () {
-                Route::get('/', 'customer')->name('customer-data');
-                Route::post('/update', 'customerUpdate')->name('customer-update');
-            });
+            Route::get('/profile', 'profile')->name('admin-profile');
+            Route::get('/profile-change', 'profileChange')->name('admin-profile-change');
 
-            Route::prefix('/laundry')->middleware(['admin'])->group(function () {
-                Route::get('/', 'laundry')->name('laundry-data');
-                Route::post('/update', 'laundryUpdate')->name('laundry-update');
-            });
+            Route::post('/profile-change-process/{id}', 'profileChangeProccess')->name('admin-profile-change-process');
 
             Route::get('/logout', 'logout')->name('admin-logout');
         });
@@ -110,6 +133,9 @@ Route::prefix('/admin')->group(function () {
         Route::middleware(['guest'])->group(function () {
             Route::get('/login', 'login')->name('admin-login');
             Route::post('/login', 'loginProcess')->name('admin-login');
+
+            Route::get('/register', 'register')->name('admin-register');
+            Route::post('/register', 'registerProcess')->name('admin-register');
         });
 
     });

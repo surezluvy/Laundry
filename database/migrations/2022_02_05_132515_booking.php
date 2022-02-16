@@ -18,9 +18,9 @@ class Booking extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->id('booking_id')->autoIncrement();
             $table->foreignId('laundry_id');
-            $table->foreign('laundry_id')->references('laundry_id')->on('laundries');
+            $table->foreign('laundry_id')->references('laundry_id')->on('laundries')->onDelete('cascade');
             $table->foreignId('user_id');
-            $table->foreign('user_id')->references('user_id')->on('users');
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->string('metode');
             $table->enum('status', ['menunggu', 'diproses', 'selesai'])->default('menunggu');
             $table->string('subtotal');
@@ -36,6 +36,6 @@ class Booking extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('bookings');
     }
 }

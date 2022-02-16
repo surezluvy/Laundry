@@ -15,8 +15,6 @@ class User extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id('user_id')->autoIncrement();
-            $table->foreignId('laundry_id')->nullable();
-            $table->foreign('laundry_id')->references('laundry_id')->on('laundries');
             $table->string('full_name');
             $table->string('email')->unique();
             $table->string('phone')->unique()->nullable();
@@ -37,6 +35,6 @@ class User extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('users');
     }
 }

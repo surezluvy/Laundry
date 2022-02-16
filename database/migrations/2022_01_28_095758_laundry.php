@@ -15,16 +15,17 @@ class Laundry extends Migration
     {
         Schema::create('laundries', function (Blueprint $table) {
             $table->id('laundry_id')->autoIncrement();
-            $table->foreignId('admin_id');
-            $table->foreign('admin_id')->references('admin_id')->on('admins');
+            $table->foreignId('user_id')->nullable();
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->string('laundry_name');
             $table->string('laundry_description');
             $table->text('laundry_address');
             $table->text('laundry_address_detail');
             $table->integer('laundry_price');
             $table->string('laundry_open');
-            $table->string('laundry_lat');
-            $table->string('laundry_long');
+            $table->enum('status', ['Belum dikonfirmasi', 'Sudah dikonfirmasi'])->default('Belum dikonfirmasi');
+            $table->string('laundry_lat')->nullable();
+            $table->string('laundry_long')->nullable();
             $table->timestamps();
         });
     }
@@ -36,6 +37,6 @@ class Laundry extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('laundries');
     }
 }

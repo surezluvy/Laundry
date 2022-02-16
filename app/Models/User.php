@@ -51,6 +51,22 @@ class User extends Authenticatable
     ];
 
     public function laundry(){
-        return $this->belongsTo(Laundry::class, 'laundry_id', 'laundry_id');
+        return $this->hasOne(Laundry::class);
+    }
+    
+    public function hasLaundry()
+    {
+        $data = Laundry::where('user_id', $this->user_id)->count();
+        // dd($data);
+        if($data == 1){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    public function laundryId(){
+        $data = Laundry::where('user_id', $this->user_id)->first();
+        return $data->laundry_id;
     }
 }

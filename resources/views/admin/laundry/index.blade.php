@@ -9,11 +9,6 @@
         <div class="row layout-top-spacing" id="cancel-row">
         
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
-                @if(session()->has('success'))
-                    <div class="alert alert-success mb-4" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-dismiss="alert"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>{{ session('success') }} </div>
-                @elseif(session()->has('error'))
-                    <div class="alert alert-danger mb-4" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-dismiss="alert"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button> {{ session('error') }} </div>
-                @endif
 
                 <div class="widget-content widget-content-area br-6">
                     <div class="table-form">
@@ -35,7 +30,9 @@
                     <table id="range-search" class="display table" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Nama</th>
+                                <th>No</th>
+                                <th>Nama mitra</th>
+                                <th>Nama laundry</th>
                                 <th>Deskripsi</th>
                                 <th>Alamat</th>
                                 <th>Alamat Lengkap</th>
@@ -47,6 +44,8 @@
                         <tbody>
                             @foreach($data as $d)
                             <tr>
+                                <td>{{ $no++ }}</td>
+                                <td>{{ $d->user->full_name }}</td>
                                 <td>{{ $d->laundry_name }}</td>
                                 <td>{{ $d->laundry_description }}</td>
                                 <td>{{ $d->laundry_address }}</td>
@@ -70,7 +69,6 @@
                                                 @csrf
                                                 <div class="modal-body">
                                                     <h5 class="modal-text text-center">Update data Laundry</h5>
-                                                    <input type="hidden" value="{{ $d->laundry_id }}" name="laundry_id">
                                                     <div class="form-group mb-4">
                                                         <label class="control-label">Nama laundry:</label>
                                                         <input type="text" name="laundry_name" class="form-control" value="{{ $d->laundry_name }}">
@@ -106,16 +104,41 @@
                                           </div>
                                          </div>
                                       </div>
-                                    <a href="#">
+                                    <a href="#" data-toggle="modal" data-target="#modal2{{ $d->laundry_id }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 table-cancel"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                                     </a>
+                                    <div id="modal2{{ $d->laundry_id }}" class="modal text-left" tabindex="-1" role="dialog" aria-labelledby="exampleModalPopoversLabel">
+                                        <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                            <div class="modal-header" id="exampleModalPopoversLabel">
+                                              <h5 class="modal-title" id="exampleModalRemoveAnimationLabel1">Delete</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                              </button>
+                                            </div>
+                                            <form method="post" action="{{ route('laundry-delete', $d->laundry_id) }}">
+                                                @csrf
+                                                <div class="modal-body text-center">
+                                                    <h5 class="modal-text">Delete data laundry</h5>
+                                                    <h7 class="modal-text">Apakah anda yakin akan menghapus customer <strong>{{ $d->laundry_name }}</strong>?</h7>
+                                                </div>
+                                                <div class="modal-footer">
+                                                <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Batal</button>
+                                                <button type="submit" class="btn btn-primary">Hapus</button>
+                                                </div>
+                                            </form>
+                                          </div>
+                                         </div>
+                                      </div>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Nama</th>
+                                <th>No</th>
+                                <th>Nama mitra</th>
+                                <th>Nama laundry</th>
                                 <th>Deskripsi</th>
                                 <th>Alamat</th>
                                 <th>Alamat Lengkap</th>

@@ -27,7 +27,7 @@
                                 <input type="hidden" name="user_long" class="form-control" value="">
 
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control @error('email') is-invalid @enderror" id="full_name"
+                                    <input type="text" class="form-control @error('full_name') is-invalid @enderror" id="full_name"
                                         placeholder="Masukan nama lengkap" value="{{ old('full_name') }}" name="full_name" required autofocus>
                                     <label for="full_name">Nama lengkap</label>
                                     @error('full_name')

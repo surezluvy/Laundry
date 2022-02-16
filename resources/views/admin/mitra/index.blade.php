@@ -1,5 +1,5 @@
 @extends('layout.admin')
-@section('role', 'Mitra')
+@section('role',  ucfirst(trans(auth()->user()->level)))
 @section('title', 'Dashboard')
 @section('content')
 <div id="content" class="main-content">
@@ -8,11 +8,6 @@
         <div class="row layout-top-spacing" id="cancel-row">
         
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
-                @if(session()->has('success'))
-                    <div class="alert alert-success mb-4" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-dismiss="alert"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button> Data <strong>berhasil</strong> di update </div>
-                @elseif(session()->has('error'))
-                    <div class="alert alert-danger mb-4" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-dismiss="alert"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button> Data <strong>gagal</strong> di update </div>
-                @endif
                 <div class="widget-content widget-content-area br-6">
                     <div class="table-form">
                         {{-- <div class="form-group row mr-3">
@@ -33,24 +28,50 @@
                     <table id="range-search" class="display table" style="width:100%">
                         <thead>
                             <tr>
+                                <th>No</th>
                                 <th>Nama</th>
                                 <th>Email</th>
-                                <th>No</th>
-                                <th>Nama Laundry</th>
+                                <th>No Hp</th>
+                                {{-- <th>Nama Laundry</th>
                                 <th>Alamat Laundry</th>
-                                <th>Status</th>
+                                <th>Status</th> --}}
                                 <th class="text-center dt-no-sorting">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($data as $d)
                             <tr>
+                                <td>{{ $no++ }}</td>
                                 <td>{{ $d->full_name }}</td>
                                 <td>{{ $d->email }}</td>
                                 <td>{{ $d->phone }}</td>
-                                <td>{{ $d->laundry->laundry_name }}</td>
-                                <td>{{ $d->laundry->laundry_address }}</td>
-                                <td class="text-center"><span class="shadow-none badge badge-primary">Approved</span></td>
+                                {{-- <td>
+                                    @if($d->laundry_name == NULL)
+                                        Belum mendaftarkan laundry
+                                    @else
+                                        {{ $d->laundry_name }}
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($d->laundry_address  == NULL)
+                                        Belum mendaftarkan laundry
+                                    @else
+                                        {{ $d->laundry_address }}
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    <span class="shadow-none badge  
+                                    @if($d->status == 'Belum dikonfirmasi') badge-info
+                                    @elseif($d->status == 'Sudah dikonfirmasi') badge-primary
+                                    @else badge-danger
+                                    @endif">
+                                    @if($d->status  == NULL)
+                                        Belum mendaftarkan laundry
+                                    @else
+                                        {{ $d->status }}
+                                    @endif
+                                    </span>
+                                </td> --}}
                                 <td class="text-center">
                                     <a href="#" data-toggle="modal" data-target="#modal{{ $d->user_id }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 p-1 br-6 mb-1"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
@@ -64,7 +85,7 @@
                                                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                               </button>
                                             </div>
-                                            <form method="post" action="{{ route('customer-update', $d->user_id) }}">
+                                            <form method="post" action="{{ route('mitra-update', $d->user_id) }}">
                                                 @csrf
                                                 <div class="modal-body">
                                                     <h5 class="modal-text text-center">Update data customer</h5>
@@ -103,21 +124,45 @@
                                           </div>
                                          </div>
                                       </div>
-                                    <a href="#">
+                                    
+                                      <a href="#" data-toggle="modal" data-target="#modal2{{ $d->user_id }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 table-cancel"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                                     </a>
+                                    <div id="modal2{{ $d->user_id }}" class="modal text-left" tabindex="-1" role="dialog" aria-labelledby="exampleModalPopoversLabel">
+                                        <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                            <div class="modal-header" id="exampleModalPopoversLabel">
+                                              <h5 class="modal-title" id="exampleModalRemoveAnimationLabel1">Delete</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                              </button>
+                                            </div>
+                                            <form method="post" action="{{ route('mitra-delete', $d->user_id) }}">
+                                                @csrf
+                                                <div class="modal-body text-center">
+                                                    <h5 class="modal-text">Delete data customer</h5>
+                                                    <h7 class="modal-text">Apakah anda yakin akan menghapus customer <strong>{{ $d->full_name }}</strong>?</h7>
+                                                </div>
+                                                <div class="modal-footer">
+                                                <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Batal</button>
+                                                <button type="submit" class="btn btn-primary">Hapus</button>
+                                                </div>
+                                            </form>
+                                          </div>
+                                         </div>
+                                      </div>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
+                                <th>No</th>
                                 <th>Nama</th>
                                 <th>Email</th>
-                                <th>No</th>
-                                <th>Nama Laundry</th>
+                                {{-- <th>Nama Laundry</th>
                                 <th>Alamat Laundry</th>
-                                <th>Status</th>
+                                <th>Status</th> --}}
                                 <th class="text-center dt-no-sorting">Aksi</th>
                             </tr>
                         </tfoot>

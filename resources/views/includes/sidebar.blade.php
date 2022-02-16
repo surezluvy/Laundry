@@ -29,7 +29,7 @@
           <div class="col-12">
               <ul class="nav nav-pills">
                   <li class="nav-item">
-                      <a class="nav-link  {{ request()->is('/*') ? 'active' : '' }}" aria-current="page" href="{{ route('home') }}">
+                      <a class="nav-link {{ request()->is('/*') ? 'active' : '' }}" aria-current="page" href="{{ route('home') }}">
                           <div class="avatar avatar-40 rounded icon"><i class="bi bi-house-door"></i></div>
                           <div class="col">Home</div>
                           <div class="arrow"><i class="bi bi-arrow-right"></i></div>

@@ -28,6 +28,6 @@ class Ongkir extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('ongkirs');
     }
 }

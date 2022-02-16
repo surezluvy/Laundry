@@ -107,17 +107,9 @@ class UserController extends Controller
             'password' => 'required|min:8'
         ]);
 
-        // $validateData = $request->validate([
-        //     'email' => 'required|email:dns|unique:admins',
-        //     'phone' => 'required|min:10|unique:admins',
-        //     'password' => 'required|min:8'
-        // ]);
-
         $validateData['password'] = bcrypt($validateData['password']);
         User::create($validateData);
-        // Admin::create($validateData);
 
-        // $request->session()->flash('success', 'Berhasil mendaftar! Silahkan masuk');
         return redirect('user/login')->with('success', 'Berhasil mendaftar! Silahkan masuk');
     }
 

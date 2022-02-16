@@ -18,14 +18,62 @@
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
     <link href="{{ asset('admin_assets/plugins/apex/apexcharts.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('admin_assets/assets/css/dashboard/dash_1.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('admin_assets/assets/css/users/account-setting.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('admin_assets/assets/css/users/user-profile.css') }}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="{{ asset('admin_assets/plugins/table/datatable/datatables.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('admin_assets/assets/css/forms/theme-checkbox-radio.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('admin_assets/plugins/table/datatable/dt-global_style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('admin_assets/plugins/table/datatable/custom_dt_custom.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('admin_assets/plugins/dropify/dropify.min.css') }}">
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 
 </head>
-<body class="sidebar-noneoverflow">
+<body class="sidebar-noneoverflow" onload="
+                    @if(session()->has('error') || session()->has('success')) modal2() @endif
+                    @yield('onload')
+                    ">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Hallo mitra {{ auth()->user()->full_name }}</h5>
+                </div>
+                <div class="modal-body">
+                    <h4 class="modal-heading mb-4 mt-2">Selamat datang di dashboard</h4>
+                        <p class="modal-text">Sebelum melanjutkan, yuk daftarkan laundry anda agar dapat menggunakan fitur yang disediakan. </p>
+                        <p class="modal-text">Klik lanjutkan untuk mendaftarkan laundry anda.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ route('admin-logout') }}" class="btn btn-danger" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Logout</a>
+                    <a href="{{ route('register-laundry') }}" type="button" class="btn btn-primary">Lanjutkan</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content text-center">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Alert 
+                        @if(session()->has('error'))
+                            Errors
+                        @elseif(session()->has('success'))
+                            Success
+                        @endif
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <h6 class="modal-text">
+                        @if(session()->has('error'))
+                            {{ session()->get('error') }}
+                        @elseif(session()->has('success'))
+                            {{ session()->get('success') }}
+                        @endif
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- BEGIN LOADER -->
     @include('includes.admin.loader')
     <!--  END LOADER -->
@@ -54,6 +102,7 @@
 
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
     
+    @yield('javascript')
     <script src="{{ asset('admin_assets/assets/js/libs/jquery-3.1.1.min.js') }}"></script>
     <script src="{{ asset('admin_assets/bootstrap/js/popper.min.js') }}"></script>
     <script src="{{ asset('admin_assets/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -73,7 +122,16 @@
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 
     <script src="{{ asset('admin_assets/plugins/table/datatable/datatables.js') }}"></script>
+    <script src="{{ asset('admin_assets/plugins/input-mask/jquery.inputmask.bundle.min.js') }}"></script>
+    <script src="{{ asset('admin_assets/plugins/input-mask/input-mask.js') }}"></script>
+    <script src="{{ asset('admin_assets/plugins/highlight/highlight.pack.js') }}"></script>
     <script>
+        function modal(){
+            $('#myModal').modal('show');
+        }
+        function modal2(){
+            $('#myModal2').modal('show');
+        }
         /* Custom filtering function which will search data in column four between two values */
         $.fn.dataTable.ext.search.push(
             function( settings, data, dataIndex ) {
@@ -109,6 +167,15 @@
             });             
             // Event listener to the two range filtering inputs to redraw on input
             $('#min, #max').keyup( function() { table.draw(); } );
+            
+            $("#alternate-masks2").inputmask("(99.99 - 99.99)|(X)", {
+                definitions: {
+                    "X": {
+                    validator: "[xX]",
+                    casing: "upper"
+                    }
+                }
+            });
         } );
     </script>
 
