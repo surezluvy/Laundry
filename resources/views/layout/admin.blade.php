@@ -50,6 +50,24 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="myModalAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Hallo admin {{ auth()->user()->full_name }}</h5>
+                </div>
+                <div class="modal-body">
+                    <h4 class="modal-heading mb-4 mt-2">Selamat datang di dashboard</h4>
+                        <p class="modal-text">Sebelum melanjutkan, mohon isi data ongkir dahulu. </p>
+                        <p class="modal-text">Klik lanjutkan untuk mengisi data ongkir.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="{{ route('admin-logout') }}" class="btn btn-danger"><i class="flaticon-cancel-12"></i> Logout</a>
+                    <a href="{{ route('ongkir-data') }}" type="button" class="btn btn-primary">Lanjutkan</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content text-center">
@@ -128,6 +146,9 @@
     <script>
         function modal(){
             $('#myModal').modal('show');
+        }
+        function modalAdmin(){
+            $('#myModalAdmin').modal('show');
         }
         function modal2(){
             $('#myModal2').modal('show');

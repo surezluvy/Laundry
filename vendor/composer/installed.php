@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'f040bac78b12e7d247d68ae2972f824acbe8fa39',
+        'reference' => 'ac58727d552530c2d1857445f9749cb911ba8f45',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -418,7 +418,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'f040bac78b12e7d247d68ae2972f824acbe8fa39',
+            'reference' => 'ac58727d552530c2d1857445f9749cb911ba8f45',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -482,6 +482,15 @@
             'install_path' => __DIR__ . '/../league/mime-type-detection',
             'aliases' => array(),
             'reference' => 'aa70e813a6ad3d1558fc927863d47309b4c23e69',
+            'dev_requirement' => false,
+        ),
+        'livewire/livewire' => array(
+            'pretty_version' => 'v2.10.4',
+            'version' => '2.10.4.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../livewire/livewire',
+            'aliases' => array(),
+            'reference' => '2d68c61a8edf338534fdd8e2b2750dca2e741439',
             'dev_requirement' => false,
         ),
         'maximebf/debugbar' => array(

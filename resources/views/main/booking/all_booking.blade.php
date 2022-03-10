@@ -9,7 +9,7 @@
     <header class="container-fluid header">
         <div class="row h-100">
             <div class="col-auto align-self-center">
-                <a href="{{ route('home') }}" class="btn btn-link back-btn text-color-theme">
+                <a href="{{ url()->previous() }}" class="btn btn-link back-btn text-color-theme">
                     <i class="bi bi-arrow-left size-20"></i>
                 </a>
             </div>
@@ -57,10 +57,13 @@
                                 <p class="mb-0">
                                     <small class="text-opac">{{ $d->created_at }}</small>
                                 </p>
-                                <h6 class="text-color-theme">{{ $d->laundry->laundry_name }}</h6>
+                                <h6 class="text-color-theme">{{ ucfirst($d->laundry->laundry_name) }}</h6>
                                 <div class="row">
                                     <div class="col">
                                         <p class="text-primary">Rp. {{ number_format($d->subtotal,2,',','.'); }}</p>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a href="{{ route('track', $d->booking_id) }}" class="link text-color-theme px-0">Track <i class="bi bi-chevron-right"></i></a>
                                     </div>
                                 </div>
                             </div>

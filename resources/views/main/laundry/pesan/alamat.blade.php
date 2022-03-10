@@ -17,7 +17,13 @@
         <!-- wizard links -->
         <div class="row justify-content-between wizard-wrapper mb-4 shadow-sm">
             <div class="col">
-                <a href="{{ route('pesan', $d->laundry_id) }}" class="wizard-link filled">
+                <a href="#" class="wizard-link filled">
+                    <i class="bi bi-bag shadow-sm"></i>
+                    <span class="wizard-text">Layanan</span>
+                </a>
+            </div>
+            <div class="col">
+                <a href="{{ url()->previous() }}" class="wizard-link filled">
                     <i class="bi bi-bag shadow-sm"></i>
                     <span class="wizard-text">Metode</span>
                 </a>
@@ -93,6 +99,10 @@
                 <div class="col align-self-center">
                     <h5 class="mb-0">Total</h5>
                     <h8>*Belum disesuaikan dengan total berat pakaian</h8>
+                    @if($metode == 'antar')
+                    <br>
+                    <h8>*Menggunakan metode antar</h8>
+                    @endif
                 </div>
             </div>
             <div class="row mb-3">
@@ -105,16 +115,8 @@
                 <div class="col">
                     <p>Jasa antar</p>
                 </div>
-                <div class="col-auto">Rp. {{ number_format($harga_ongkir,2,',','.'); }}</div>
+                <div class="col-auto">@if($metode != 'antar') Rp. {{ number_format($harga_ongkir,2,',','.') }} @else Rp. 0 @endif </div>
             </div>
-            @if($metode == 'antar')
-                <div class="row mb-3">
-                    <div class="col">
-                        <p>Metode antar</p>
-                    </div>
-                    <div class="col-auto">- Rp. {{ number_format(5000,2,',','.'); }}</div>
-                </div>
-            @endif
             
             <div class="row fw-bold mb-4">
                 <div class="mb-3 col-12">
@@ -135,7 +137,7 @@
                     <input type="hidden" name="laundry_id" value="{{ $d->laundry_id }}" required>
                     <input type="hidden" name="user_id" value="{{ auth()->user()->user_id }}" required>
                     <input type="hidden" name="metode" value="{{ $metode }}" required>
-                    <input type="hidden" name="subtotal" value="{{ $subtotal }}" required>
+                    <input type="hidden" name="subtotal" value="{{ $total }}" required>
 
                     <button type="submit" class="btn btn-default btn-lg shadow-sm">Proses</button>
                 </div>

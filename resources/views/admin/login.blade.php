@@ -81,11 +81,11 @@
                                     </div>
                                 </div>
 
-                                <div class="division">
+                                {{-- <div class="division">
                                       <span>OR</span>
-                                </div>
+                                </div> --}}
 
-                                <p class="signup-link">Belum terdaftar ? <a href="{{ route('admin-register') }}">Daftar sebagain mitra</a></p>
+                                {{-- <p class="signup-link">Belum terdaftar ? <a href="{{ route('admin-register') }}">Daftar sebagain mitra</a></p> --}}
 
                             </div>
                         </form>

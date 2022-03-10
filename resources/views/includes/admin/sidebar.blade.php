@@ -51,9 +51,17 @@
                     </div>
                 </a>
             </li>
+            <li class="menu {{ request()->is('admin/ongkir') ? 'active' : '' }}">
+                <a href="{{ route('ongkir-data') }}" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layout"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                        <span>Daftar ongkir</span>
+                    </div>
+                </a>
+            </li>
             @endif
             
-            @if(auth()->user()->level == 'mitra' && auth()->user()->hasLaundry())
+            @if(auth()->user()->level == 'mitra' && auth()->user()->hasLaundry() && auth()->user()->laundryStatus() == 'Sudah dikonfirmasi')
             <li class="menu {{ request()->is('admin/booking') ? 'active' : '' }}">
                 <a href="{{ route('booking-data') }}" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
@@ -61,6 +69,29 @@
                         <span>Daftar pesanan</span>
                     </div>
                 </a>
+            </li>
+            <li class="menu {{ request()->is('admin/layanan') ? 'active' : '' }}">
+                <a href="{{ route('layanan-data') }}" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layout"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                        <span>Daftar layanan</span>
+                    </div>
+                </a>
+            </li>
+            @elseif(auth()->user()->level == 'mitra' && auth()->user()->hasLaundry() && auth()->user()->laundryStatus() == 'Belum dikonfirmasi')
+            <li class="menu {{ request()->is('admin/booking') ? 'active' : '' }}">
+                <div class="text-center">
+                    <span>Mohon tunggu admin untuk <br> konfirmasi laundry untuk <br> akses menu</span>
+                    <form method="post" action="{{ route('send-notif', [auth()->user()->laundryId(), auth()->user()->user_id]) }}">
+                        @csrf
+                        <div class="modal-body text-center">
+                            <span>Kirim notifikasi ke admin</span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary btn-block">Kirim</button>
+                        </div>
+                    </form>
+                </div>
             </li>
             @endif
 

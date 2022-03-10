@@ -65,6 +65,11 @@ class User extends Authenticatable
         }
     }
 
+    public function laundryStatus(){
+        $data = Laundry::where('user_id', $this->user_id)->first();
+        return $data->status;
+    }
+
     public function laundryId(){
         $data = Laundry::where('user_id', $this->user_id)->first();
         return $data->laundry_id;

@@ -2,11 +2,14 @@
 
 @if(auth()->user()->level == 'mitra' && auth()->user()->hasLaundry() == false)
     @section('onload', 'modal()')
+@elseif(auth()->user()->level == 'admin' && $ongkir->count() == 0)
+    @section('onload', 'modalAdmin()')
 @endif
 
 @section('role',  ucfirst(trans(auth()->user()->level)))
 @section('title', 'Dashboard')
 @section('content')
+
 <div id="content" class="main-content">
 
     <div class="layout-px-spacing">

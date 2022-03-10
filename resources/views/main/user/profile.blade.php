@@ -83,23 +83,26 @@
                             <h5 class="mx-auto" style="color: red;"><b>Riwayat anda kosong!</b></h5>
                         @endif
                         @foreach ($data as $d)
-                        <li class="list-group-item border-0">
-                            <div class="row">
-                                <div class="col-auto">
-                                    <figure class="avatar avatar-50 rounded-circle">
-                                        <img src="{{ asset('assets/img/googlelogo.png') }}" alt="">
-                                    </figure>
+                        <a href="{{ route('track', $d->booking_id) }}" style="text-decoration: none">
+                            <li class="list-group-item border-0">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <figure class="avatar avatar-50 rounded-circle">
+                                            <img src="{{ asset('assets/img/googlelogo.png') }}" alt="">
+                                        </figure>
+                                    </div>
+                                    <div class="col px-0">
+                                        <p>{{ $d->laundry->laundry_name }}<br><small class="text-opac">{{ $d->laundry->laundry_address }}</small></p>
+                                        
+                                    </div>
+                                    <div class="col-auto text-end">
+                                        <p>
+                                            <small class="text-opac">{{ $d->created_at }}</small>
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="col px-0">
-                                    <p>{{ $d->laundry->laundry_name }}<br><small class="text-opac">{{ $d->laundry->laundry_address }}</small></p>
-                                </div>
-                                <div class="col-auto text-end">
-                                    <p>
-                                        <small class="text-opac">{{ $d->created_at }}</small>
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
+                            </li>
+                        </a>
                         @endforeach
 
 
@@ -115,7 +118,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 ">
+            <div class="col-12 mb-5">
                 <div class="card shadow-sm product mb-4">
                     <div class="card-header">
                         <div class="row">

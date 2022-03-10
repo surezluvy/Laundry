@@ -17,13 +17,13 @@
         <!-- wizard links -->
         <div class="row justify-content-between wizard-wrapper mb-4 shadow-sm">
             <div class="col">
-                <a href="{{ url()->previous() }}" class="wizard-link filled">
+                <a href="{{ route('pesan', $d->laundry_id) }}" class="wizard-link active">
                     <i class="bi bi-bag shadow-sm"></i>
                     <span class="wizard-text">Layanan</span>
                 </a>
             </div>
             <div class="col">
-                <a href="{{ route('pesan', $d->laundry_id) }}" class="wizard-link active">
+                <a href="#" class="wizard-link">
                     <i class="bi bi-bag shadow-sm"></i>
                     <span class="wizard-text">Metode</span>
                 </a>
@@ -39,21 +39,17 @@
         <!-- Payment Proccess -->
         <div class="row mb-3">
             <div class="col align-self-center">
-                <h5 class="mb-0">Pilih metode</h5>
+                <h5 class="mb-0">Pilih layanan</h5>
             </div>
         </div>
         <div class="row mb-2">
+            @foreach($layanan as $l)
             <div class="col-12 col-md-6 col-lg-4">
-                <a href="{{ route('pesan', [$d->laundry_id, $layanan_id, 'antar']) }}" class="card shadow-sm mb-3 product text-normal">
+                <a href="{{ route('pesan', [$d->laundry_id, $l->layanan_id]) }}" class="card shadow-sm mb-3 product text-normal">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-auto">
-                                <figure class="text-center mb-0 avatar avatar-40 page-bg rounded p-1">
-                                    <img src="{{ asset('assets/img/maestro.png') }}" alt="">
-                                </figure>
-                            </div>
                             <div class="col align-self-center">
-                                <p>Di antarkan<br><small class="text-opac">Pengguna mengantarkan pakaian yang akan di laundry</small></p>
+                                <p>{{ $l->nama }} <br> <small>Harga : {{ $l->harga }}</small></p>
                             </div>
                             <div class="col-auto align-self-center">
                                 <i class="bi bi-chevron-right text-color-theme"></i>
@@ -62,25 +58,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <a href="{{ route('pesan', [$d->laundry_id, $layanan_id, 'jemput']) }}" class="card shadow-sm mb-3 product text-normal">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-auto">
-                                <figure class="text-center mb-0 avatar avatar-40 page-bg rounded p-1">
-                                    <img src="{{ asset('assets/img/visa.png') }}" alt="">
-                                </figure>
-                            </div>
-                            <div class="col align-self-center">
-                                <p>Di jemput<br><small class="text-opac">Mitra menjemput pakaian yang akan di laundry</small></p>
-                            </div>
-                            <div class="col-auto align-self-center">
-                                <i class="bi bi-chevron-right text-color-theme"></i>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+            @endforeach
         </div>
 
         <!-- pricing -->
@@ -90,12 +68,6 @@
                     <h5 class="mb-0">Total</h5>
                     <h8>*Belum disesuaikan dengan total berat pakaian</h8>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col">
-                    <p>Harga layanan /kg</p>
-                </div>
-                <div class="col-auto">Rp. {{ number_format($layanan->harga,2,',','.') }}</div>
             </div>
             <div class="row mb-3">
                 <div class="col">

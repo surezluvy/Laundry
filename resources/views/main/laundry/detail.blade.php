@@ -116,7 +116,7 @@
         
         <div class="row mb-3">
             <div class="col align-self-center d-grid">
-                <a href="{{ route('pesan', $d->laundry_id) }}" class="btn btn-default btn-lg shadow-sm">Pesan</a>
+                <a href="{{ route('layanan', $d->laundry_id) }}" class="btn btn-default btn-lg shadow-sm">Pesan</a>
             </div>
         </div>
 

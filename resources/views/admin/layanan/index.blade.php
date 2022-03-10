@@ -1,5 +1,5 @@
 @extends('layout.admin')
-@section('role', 'Customer')
+@section('role', 'Layanan')
 @section('title', 'Dashboard')
 @section('content')
 <div id="content" class="main-content">
@@ -9,6 +9,7 @@
         <div class="row layout-top-spacing" id="cancel-row">
         
             <div class="col-xl-12 col-lg-12 col-sm-12 layout-spacing">
+
                 <div class="widget-content widget-content-area br-6">
                     <div class="table-form">
                         <button type="button" data-toggle="modal" data-target="#modalAdd" class="btn btn-primary btn-block mt-4 mb-1 me-3">
@@ -24,68 +25,29 @@
                                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                     </button>
                                     </div>
-                                    <form method="post" action="{{ route('add-customer') }}">
+                                    <form method="post" action="{{ route('add-layanan') }}">
                                         @csrf
                                         <div class="modal-body">
-                                            <h5 class="modal-text text-center">Tambah data customer</h5>
+                                            <h5 class="modal-text text-center">Tambah data Layanan</h5>
                                             <div class="form-group mb-4">
-                                                <label class="control-label">Nama lengkap:</label>
-                                                <input placeholder="Masukan nama lengkap" type="text" name="full_name" class="form-control @error('full_name') is-invalid @enderror">
-                                                @error('full_name')
+                                                <label class="control-label">Nama layanan:</label>
+                                                <input placeholder="Masukan nama Layanan" type="text" name="nama" class="form-control @error('nama') is-invalid @enderror">
+                                                @error('nama')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                                 @enderror
                                             </div>
                                             <div class="form-group mb-4">
-                                                <label class="control-label">Email:</label>
-                                                <div class="input-group"> 
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">@</div>
-                                                    </div>
-                                                    <input placeholder="Masukan email" type="email" name="email" class="form-control @error('email') is-invalid @enderror"> 
-                                                    @error('email')
+                                                <label class="control-label">Harga <small>/kg</small>:</label>
+                                                <div class="input-group">
+                                                    <input placeholder="Masukan deskripsi Layanan" type="number" name="harga" class="form-control @error('harga') is-invalid @enderror"> 
+                                                    @error('harga')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
                                                     </div>
                                                     @enderror
                                                 </div> 
-                                            </div>
-                                            <div class="form-group mb-4">
-                                                <label class="control-label">No Hp:</label>
-                                                <input placeholder="Masukan no Hp" type="number" name="phone" class="form-control @error('phone') is-invalid @enderror">
-                                                @error('phone')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group mb-4">
-                                                <label class="control-label">Alamat:</label>
-                                                <input placeholder="Masukan alamat" type="text" name="address" class="form-control @error('address') is-invalid @enderror">
-                                                @error('address')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group mb-4">
-                                                <label class="control-label">Detail alamat:</label>
-                                                <input placeholder="Masukan detail alamat" type="text" name="address_detail" class="form-control @error('address_detail') is-invalid @enderror">
-                                                @error('address_detail')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group mb-4">
-                                                <label class="control-label">Password:</label>
-                                                <input placeholder="Masukan password" type="text" name="password" class="form-control @error('password') is-invalid @enderror">
-                                                @error('password')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -116,10 +78,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama</th>
-                                <th>Email</th>
-                                <th>No</th>
-                                <th>Alamat</th>
-                                <th>Alamat Lengkap</th>
+                                <th>Harga</th>
                                 <th class="text-center dt-no-sorting">Aksi</th>
                             </tr>
                         </thead>
@@ -127,16 +86,13 @@
                             @foreach($data as $d)
                             <tr>
                                 <td>{{ $no++ }}</td>
-                                <td>{{ $d->full_name }}</td>
-                                <td>{{ $d->email }}</td>
-                                <td>{{ $d->phone }}</td>
-                                <td>{{ $d->address }}</td>
-                                <td>{{ $d->address_detail }}</td>
+                                <td>{{ $d->nama }}</td>
+                                <td>Rp. {{ number_format($d->harga,2,',','.'); }}</td>
                                 <td class="text-center">
-                                    <a href="#" data-toggle="modal" data-target="#modal{{ $d->user_id }}">
+                                    <a href="#" data-toggle="modal" data-target="#modal{{ $d->layanan_id }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 p-1 br-6 mb-1"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
                                     </a>
-                                    <div id="modal{{ $d->user_id }}" class="modal text-left" tabindex="-1" role="dialog" aria-labelledby="exampleModalPopoversLabel">
+                                    <div id="modal{{ $d->layanan_id }}" class="modal text-left" tabindex="-1" role="dialog" aria-labelledby="exampleModalPopoversLabel">
                                         <div class="modal-dialog" role="document">
                                           <div class="modal-content">
                                             <div class="modal-header" id="exampleModalPopoversLabel">
@@ -145,34 +101,19 @@
                                                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                               </button>
                                             </div>
-                                            <form method="post" action="{{ route('customer-update', $d->user_id) }}">
+                                            <form method="post" action="{{ route('layanan-update', $d->layanan_id) }}">
                                                 @csrf
                                                 <div class="modal-body">
-                                                    <h5 class="modal-text text-center">Update data customer</h5>
+                                                    <h5 class="modal-text text-center">Update data Layanan</h5>
                                                     <div class="form-group mb-4">
-                                                        <label class="control-label">Nama lengkap:</label>
-                                                        <input type="text" name="full_name" class="form-control" value="{{ $d->full_name }}">
+                                                        <label class="control-label">Nama layanan:</label>
+                                                        <input type="text" name="nama" class="form-control" value="{{ $d->nama }}">
                                                     </div>
                                                     <div class="form-group mb-4">
-                                                        <label class="control-label">Email:</label>
+                                                        <label class="control-label">Harga:</label>
                                                         <div class="input-group"> 
-                                                            <div class="input-group-prepend">
-                                                                <div class="input-group-text">@</div>
-                                                            </div>
-                                                            <input type="email" name="email" class="form-control"  value="{{ $d->email }}"> 
+                                                            <input type="number" name="harga" class="form-control"  value="{{ $d->harga }}"> 
                                                         </div> 
-                                                    </div>
-                                                    <div class="form-group mb-4">
-                                                        <label class="control-label">No Hp:</label>
-                                                        <input type="number" name="phone" class="form-control"  value="{{ $d->phone }}">
-                                                    </div>
-                                                    <div class="form-group mb-4">
-                                                        <label class="control-label">Alamat:</label>
-                                                        <input type="text" name="address" class="form-control"  value="{{ $d->address }}">
-                                                    </div>
-                                                    <div class="form-group mb-4">
-                                                        <label class="control-label">Detail alamat:</label>
-                                                        <input type="text" name="address_detail" class="form-control"  value="{{ $d->address_detail }}">
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -183,10 +124,11 @@
                                           </div>
                                          </div>
                                       </div>
-                                    <a href="#" data-toggle="modal" data-target="#modal2{{ $d->user_id }}">
+                                    <a href="#" data-toggle="modal" data-target="#modal2{{ $d->layanan_id }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 table-cancel"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                                     </a>
-                                    <div id="modal2{{ $d->user_id }}" class="modal text-left" tabindex="-1" role="dialog" aria-labelledby="exampleModalPopoversLabel">
+
+                                    <div id="modal2{{ $d->layanan_id }}" class="modal text-left" tabindex="-1" role="dialog" aria-labelledby="exampleModalPopoversLabel">
                                         <div class="modal-dialog" role="document">
                                           <div class="modal-content">
                                             <div class="modal-header" id="exampleModalPopoversLabel">
@@ -195,11 +137,11 @@
                                                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                                               </button>
                                             </div>
-                                            <form method="post" action="{{ route('customer-delete', $d->user_id) }}">
+                                            <form method="post" action="{{ route('layanan-delete', $d->layanan_id) }}">
                                                 @csrf
                                                 <div class="modal-body text-center">
-                                                    <h5 class="modal-text">Delete data customer</h5>
-                                                    <h7 class="modal-text">Apakah anda yakin akan menghapus customer <strong>{{ $d->full_name }}</strong>?</h7>
+                                                    <h5 class="modal-text">Delete data layanan</h5>
+                                                    <h7 class="modal-text">Apakah anda yakin akan menghapus layanan <strong>{{ $d->Layanan_name }}</strong>?</h7>
                                                 </div>
                                                 <div class="modal-footer">
                                                 <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12"></i> Batal</button>
@@ -217,10 +159,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama</th>
-                                <th>Email</th>
-                                <th>No</th>
-                                <th>Alamat</th>
-                                <th>Alamat Lengkap</th>
+                                <th>Harga</th>
                                 <th class="text-center dt-no-sorting">Aksi</th>
                             </tr>
                         </tfoot>
