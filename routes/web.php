@@ -74,7 +74,7 @@ Route::prefix('/admin')->group(function () {
 
     Route::controller(AdminController::class)->group(function () {
 
-        Route::middleware(['adminMitra', 'auth'])->group(function () {
+        Route::middleware(['adminMitra', 'authAdmin'])->group(function () {
             Route::get('/', 'dashboard')->name('admin-dashboard');
             
             Route::middleware(['admin'])->group(function () {
