@@ -109,7 +109,7 @@
                 <div class="col">
                     <p>Harga laundry /kg</p>
                 </div>
-                <div class="col-auto">Rp. {{ number_format($d->laundry_price,2,',','.') }}</div>
+                <div class="col-auto">Rp. {{ number_format($layanan->harga,2,',','.') }}</div>
             </div>
             <div class="row mb-3">
                 <div class="col">

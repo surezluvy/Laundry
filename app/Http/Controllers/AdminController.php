@@ -26,18 +26,29 @@ class AdminController extends Controller
     function dashboard(){
         $laundryStatus = '';
         $ongkir = Ongkir::all();
-        $total = DB::table("bookings")
-                ->select(DB::raw("SUM(subtotal) as total"))
-                ->first();
+        $laundry = Laundry::where('user_id', auth()->user()->user_id)->first();
+        
+        if($laundry != null){
+            $total = DB::table("bookings")
+                    ->where('laundry_id', $laundry->laundry_id)
+                    ->select(DB::raw("SUM(subtotal) as total"))
+                    ->first();
+            
+            $bookingUser = Booking::with('user', 'laundry')->where('laundry_id', $laundry->laundry_id)->get();
+        }else{
+            $total = 0;
+            $bookingUser = Booking::with('user', 'laundry')->get();
+        }
+        
         $data = Booking::with('user')->where('laundry_id', auth()->user()->laundry_id)
             ->orderBy('booking_id', 'desc')->limit(10)->get();
         $user = User::where('level', '!=', 'admin')->limit(10)->get();	
         $booking = Booking::with('user', 'laundry')->limit(10)->get();
-        
+
         if(auth()->user()->hasLaundry()){
             $laundryStatus = Laundry::with('user')->where('user_id', auth()->user()->user_id)->count();
         }
-        return view('admin.dashboard', compact('data', 'user', 'booking', 'total', 'laundryStatus', 'ongkir'));
+        return view('admin.dashboard', compact('data', 'user', 'booking', 'total', 'laundryStatus', 'ongkir', 'bookingUser'));
     }
 
     // =======================================================================================================

@@ -17,7 +17,7 @@ class HomeController extends Controller
     function index(Request $request){
         $data = Laundry::selectRaw('laundries.*, (6371 * acos (cos ( radians('.auth()->user()->user_lat.') ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians('.auth()->user()->user_long.') ) + sin ( radians('.auth()->user()->user_lat.') ) * sin( radians( laundry_lat ) ))) AS distance')
         ->havingRaw('distance <= 20')
-        ->where('status', 'Sudah dikonfirmasi')
+        // ->where('status', 'Sudah dikonfirmasi')
         ->take(5)
         ->get();
 
@@ -29,7 +29,8 @@ class HomeController extends Controller
             ->take(5)
             ->get();
         }
-        
+        // dd($data);
+
         // dd(auth()->user()->role);
         return view('main.laundry.index', compact('data'));
     }
@@ -48,12 +49,12 @@ class HomeController extends Controller
         ->havingRaw('distance <= 20')
         ->with(['laundryFitur'])
         ->get();
-        
+
         $latest = Laundry::selectRaw('laundries.*, (6371 * acos (cos ( radians('.auth()->user()->user_lat.') ) * cos( radians( laundry_lat ) ) * cos( radians( laundry_long ) - radians('.auth()->user()->user_long.') ) + sin ( radians('.auth()->user()->user_lat.') ) * sin( radians( laundry_lat ) ))) AS distance')
         ->where('laundry_id', '!=', $id)
         ->havingRaw('distance <= 20')
         ->get(3);
-        
+
         $fitur = LaundryFitur::where('laundry_id', $id)->get();
 
         return view('main.laundry.detail', compact('data', 'latest', 'fitur'));
@@ -77,13 +78,15 @@ class HomeController extends Controller
                 if($d->distance >= $ongkir[$i]->jarak && $d->distance <= $ongkir[$i+1]->jarak){
                     $harga_ongkir = $ongkir[$i+1]->harga;
                     $subtotal = $ongkir[0]->harga;
-                    $total = $d->laundry_price + $ongkir[$i+1]->harga;
+                    $total = $ongkir[$i+1]->harga;
+                    // $total = $d->laundry_price + $ongkir[$i+1]->harga;
                 }elseif($d->distance <= $ongkir[0]->jarak){
                     // dd($d->distance >= $ongkir[$i]->jarak);
                     $harga_ongkir = $ongkir[0]->harga;
                     // $harga_ongkir = (float) $harga_ongkir1;
                     $subtotal = $ongkir[0]->harga;
-                    $total = $d->laundry_price + $ongkir[0]->harga;
+                    $total = $ongkir[0]->harga;
+                    // $total = $d->laundry_price + $ongkir[0]->harga;
                 }
             }
         }
@@ -141,13 +144,15 @@ class HomeController extends Controller
                 if($d->distance >= $ongkir[$i]->jarak && $d->distance <= $ongkir[$i+1]->jarak){
                     $harga_ongkir = $ongkir[$i+1]->harga;
                     $subtotal = $ongkir[0]->harga;
-                    $total = $d->laundry_price + $ongkir[$i+1]->harga;
+                    // $total = $d->laundry_price + $ongkir[$i+1]->harga;
+                    $total = $ongkir[$i+1]->harga + $layanan->harga;
                 }elseif($d->distance <= $ongkir[0]->jarak){
                     // dd($d->distance >= $ongkir[$i]->jarak);
                     $harga_ongkir = $ongkir[0]->harga;
                     // $harga_ongkir = (float) $harga_ongkir1;
                     $subtotal = $ongkir[0]->harga;
-                    $total = $d->laundry_price + $ongkir[0]->harga;
+                    $total = $ongkir[0]->harga + $layanan->harga;
+                    // $total = $d->laundry_price + $ongkir[0]->harga;
                 }
             }
         }

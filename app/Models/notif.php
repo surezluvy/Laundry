@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class notif extends Model
+class Notif extends Model
 {
     use HasFactory;
     protected $primaryKey = 'notif_id';
     protected $guarded = ['notif_id'];
     protected $table = 'notifications';
-    
+
     public function laundry(){
         return $this->belongsTo(Laundry::class, 'laundry_id', 'laundry_id');
     }

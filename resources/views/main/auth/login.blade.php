@@ -12,7 +12,7 @@
         <div class="col-12 text-center">
             <div class="logo-small">
                 <img src="{{ asset('assets/img/logo.png') }}" alt="" class="img">
-                <h6>My<br><small>Laundry</small></h6>
+                <h6>Nyuci.in<br></h6>
             </div>
         </div>
         <div class="col-12 mx-auto text-center">
@@ -57,6 +57,7 @@
                                     @enderror
                                 </div>
 
+                                <a href="{{ route('register') }}" class="btn btn-lg btn-info shadow-sm">Daftar</a>
                                 <button type="submit" class="btn btn-lg btn-default shadow-sm">Masuk</button>
                             </form>
                         </div>
@@ -69,7 +70,7 @@
         <div class="col-12 text-center align-self-end py-2">
             <div class="row">
                 <div class="col text-center">
-                    Don't have account? <a href="{{ route('register') }}" class="btn btn-link px-0 ms-2">Sign up <i class="bi bi-chevron-right"></i></a>
+                    Login sebagai mitra? <a href="{{ route('admin-login') }}" class="btn btn-link px-0 ms-2">Login <i class="bi bi-chevron-right"></i></a>
                 </div>
             </div>
         </div>

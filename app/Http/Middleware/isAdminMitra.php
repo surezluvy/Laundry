@@ -17,10 +17,10 @@ class isAdminMitra
      */
     public function handle(Request $request, Closure $next)
     {
-        
-        if (Auth::user()->level == 'admin' || Auth::user()->level == 'mitra') { 
+
+        if (Auth::user()->level == 'admin' || Auth::user()->level == 'mitra') {
             return $next($request);
-        } elseif (Auth::user()->level == 'customer') { 
+        } elseif (Auth::user()->level == 'customer') {
             return back()->with('error', 'Cannot access to restricted page');
         }
 
